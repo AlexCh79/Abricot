@@ -1,5 +1,4 @@
 @use '@/styles/variables' as *;
-@use '@/styles/mixins' as *;
 
 .header {
     display: flex;
@@ -11,6 +10,9 @@
     height: 94px;
     padding: 8px 100px;
     box-shadow: 0px 4px 12px 1px #00000005;
+    @media screen and (max-width: 749px) {
+        padding: 0 5px;
+    }    
 }
 
 .navbar {
@@ -21,5 +23,5 @@
 
 .link {
     color: $color-brand-dark-orange;
-    text-size: $body-m;
+    font-size: $body-m;
 }

@@ -1,6 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import styles from './Header.module.scss';
+import { DashButton, FileButton } from "../buttons/HeadButton/HeadButton";
+import { UserButton } from "../buttons/UserButton/UserButton";
 
 export default function Header() {
     return (
@@ -15,11 +17,11 @@ export default function Header() {
                 />
             </div>
             <nav aria-label="Navigation principale" className={styles.navbar}>
-                <Link href="/dashboard" aria-label="vers le tableau de bord" className={styles.Link}>Tableau de Bord</Link>
-                <Link href="/projects" aria-label="vers les projets" className={styles.Link}>Projets</Link>
+                <DashButton />
+                <FileButton />
             </nav>
             <div className="header__account">
-                <Link href="/account" aria-label="Vers mon compte" className={styles.Link}>Mon compte</Link>
+                <UserButton />
             </div>
         </header>
     )

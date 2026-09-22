@@ -1,0 +1,38 @@
+@use '@/styles/variables' as *;
+
+.btnLink {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    width: 248px;
+    height: fit-content;
+    max-height: 78px;
+    border-radius: 10px;
+    padding: 27px 62px;
+    background-color: $color-white;
+    color: $color-brand-dark-orange;
+    text-decoration: none;
+    transition: all 300ms ease-out;
+    &:hover, &:active {
+        background-color: $color-grey-950;
+        color: $color-white;
+    }
+    @media screen and (max-width: 749px) {
+        width: fit-content;
+        padding: 2px;
+    }
+}
+
+.navIcon {
+    width: 24px;
+    height: 24px;
+}
+
+.btnTitle {
+    font-size: $body-m;
+    @media screen and (max-width: 749px) {
+        display: none;
+    }
+}
