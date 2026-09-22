@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Manrope } from "next/font/google";
-import "./assets/styles/globals.scss";
+import Header from "@/components/Header/Header";
+import "@/styles/globals.scss";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -21,6 +22,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="fr" className={`${inter.variable} ${manrope.variable}`}>
       <body>
+        <Header />
         <main>
           {children}
         </main>
