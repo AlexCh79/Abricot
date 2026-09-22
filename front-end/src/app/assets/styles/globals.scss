@@ -9,10 +9,42 @@
 
 body {
   background-color: $color-grey-50;
-  color: $text-black;
   font-family: $font-text;
+  line-height: auto;
+  font-weight: normal;
 }
 
-h1, h2, h3, h4 {
+
+/* Typographie */
+h1, h2, h3, h4, h5 {
   font-family: $font-heading;
 }
+
+h1, h2 {
+  font-weight: bold;
+}
+
+h1 {
+  font-size: 2.5em; // 40 px
+}
+
+h2 {
+  font-size: 2em; // 32 px
+}
+
+h3, h4, h5 {
+  font-weight: 600; // semibold
+}
+
+h3 {
+  font-size: 1.75em; // 28px
+}
+
+h4 {
+  font-size: 1.5em; // 24px
+}
+
+h5 {
+  font-size: 1.125em; // 18px
+}
+

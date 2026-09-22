@@ -20,7 +20,11 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="fr" className={`${inter.variable} ${manrope.variable}`}>
-      <body>{children}</body>
+      <body>
+        <main>
+          {children}
+        </main>
+      </body>
     </html>
   );
 }
