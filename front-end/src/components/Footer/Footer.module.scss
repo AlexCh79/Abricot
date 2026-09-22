@@ -1,0 +1,21 @@
+@use '@/styles/variables' as *;
+
+.footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 68px;
+    background-color: $color-white;
+    padding: 5px 40px;
+}
+
+.footerLogo {
+    width: 101px;
+    height: 12.86px;
+}
+
+.footerContent {
+    font-size: $body-m;
+}
