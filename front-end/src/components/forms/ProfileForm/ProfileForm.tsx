@@ -10,9 +10,11 @@ import {
   updatePassword,
 } from "@/services/authService";
 import type { User } from "@/types/User";
+import { splitName, joinName } from "@/utils/name";
 
 export default function ProfileForm() {
-  const [name, setName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [currentPassword, setCurrentPassword] = useState("");
   const [error, setError] = useState("");
@@ -24,8 +26,10 @@ export default function ProfileForm() {
     const loadProfile = async () => {
       try {
         const user: User = await getProfile();
-        setName(user.name ?? "");
-        setEmail(user.email ?? "");
+        const { firstName, lastName } = splitName(user.name);
+        setFirstName(firstName);
+        setLastName(lastName);
+        setEmail(user.email);
       } catch (err) {
         setError(err instanceof Error ? err.message : "Profil indisponible");
       } finally {
@@ -55,8 +59,14 @@ export default function ProfileForm() {
         setCurrentPassword("");
         setNewPassword("");
       }
-      const user = await updateProfile({ name, email });
-      setName(user.name ?? "");
+
+      const user = await updateProfile({
+        name: joinName(firstName, lastName),
+        email,
+      });
+      const names = splitName(user.name);
+      setFirstName(names.firstName);
+      setLastName(names.lastName);
       setEmail(user.email);
       setSuccess(
         wantsPasswordChange
@@ -76,7 +86,9 @@ export default function ProfileForm() {
     <div className={styles.profilePage}>
       <div className={styles.profileFormTitleWrapper}>
         <h1 className={styles.profileFormTitle}>Mon compte</h1>
-        <span className={styles.profileFormSubtitle}>{name}</span>
+        <span className={styles.profileFormSubtitle}>
+          {joinName(firstName, lastName)}
+        </span>
       </div>
       <form
         className={styles.profileForm}
@@ -84,15 +96,29 @@ export default function ProfileForm() {
         onSubmit={handleSubmit}
       >
         <div className={styles.profileFormGroupField}>
-          <label className={styles.profileFormLabel} htmlFor="name">
+          <label className={styles.profileFormLabel} htmlFor="lastName">
             Nom
           </label>
           <input
             className={styles.profileInput}
-            id="name"
-            name="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            id="lastName"
+            name="lastName"
+            value={lastName}
+            autoComplete="family-name"
+            onChange={(e) => setLastName(e.target.value)}
+          />
+        </div>
+        <div className={styles.profileFormGroupField}>
+          <label className={styles.profileFormLabel} htmlFor="firstName">
+            Prénom
+          </label>
+          <input
+            className={styles.profileInput}
+            id="firstName"
+            name="firstName"
+            value={firstName}
+            autoComplete="given-name"
+            onChange={(e) => setFirstName(e.target.value)}
           />
         </div>
         <div className={styles.profileFormGroupField}>
