@@ -1,0 +1,34 @@
+@use "@/styles/variables" as *;
+
+.projectsPage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 100px;
+}
+
+.projectsHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.projectsTitleWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 89px;
+  text-align: left;
+}
+
+.projectsTitle {
+  color: $color-grey-800;
+  font-size: 1.5em; // 24px
+}
+
+.projectsSubtitle {
+  font-size: $body-l;
+}
