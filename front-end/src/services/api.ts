@@ -1,19 +1,17 @@
 import { API_URL } from "../config/api";
 import { getCookie } from "../utils/cookies";
 
-export async function apiFetch(path, options = {}) {
+export async function apiFetch(path: string, options: RequestInit = {}) {
   // Récupération du token stocké dans le cookie
   const token = getCookie("token");
 
   // Récupération des headers existants
-  const headers = {
-    "Content-Type": "application/json",
-    ...options.headers,
-  };
+  const headers = new Headers(options.headers);
+  headers.set("Content-type", "application/json");
 
   // Stockage du token dans le header
   if (token) {
-    headers.Authorization = `Bearer ${token}`;
+    headers.set("Authorization", `Bearer ${token}`);
   }
 
   // Création du endpoint selon le chemin donné

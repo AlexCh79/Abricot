@@ -1,13 +1,13 @@
 // Stockage cookie
-export function setCookie(name, value, days) {
+export function setCookie(name: string, value: string, days: number) {
   const expires = new Date(
     Date.now() + days * 24 * 60 * 60 * 1000,
   ).toUTCString();
-  document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires}: path=/ SameSite=Strict`;
+  document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires}; path=/; SameSite=Strict`;
 }
 
 // Récupération du cookie
-export function getCookie(name) {
+export function getCookie(name: string | null) {
   const match = document.cookie
     .split("; ")
     .find((row) => row.startsWith(`${name}=`));
@@ -18,6 +18,6 @@ export function getCookie(name) {
 }
 
 // Expiration du cookie
-export function deleteCookie(name) {
+export function deleteCookie(name: string) {
   document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; SameSite=Strict`;
 }

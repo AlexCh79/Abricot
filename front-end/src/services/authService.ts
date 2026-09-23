@@ -2,7 +2,7 @@ import { apiFetch } from "./api";
 import { setCookie } from "../utils/cookies";
 
 // Connexion utilisateur
-export async function login(email, password) {
+export async function login(email: string, password: string) {
   const body = await apiFetch("/auth/login", {
     method: "POST",
     body: JSON.stringify({ email, password }),
