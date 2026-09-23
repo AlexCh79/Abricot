@@ -1,5 +1,5 @@
 import { apiFetch } from "./api";
-import { setCookie } from "../utils/cookies";
+import { setCookie, deleteCookie } from "../utils/cookies";
 
 // Connexion utilisateur
 export async function login(email: string, password: string) {
@@ -11,4 +11,9 @@ export async function login(email: string, password: string) {
   // Stockage du token dans un cookie
   setCookie("token", body.data.token, 7);
   return body.data.user;
+}
+
+// Déconnexion utilisateur
+export async function logout() {
+  deleteCookie("token");
 }

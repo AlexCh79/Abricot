@@ -7,7 +7,7 @@ export function setCookie(name: string, value: string, days: number) {
 }
 
 // Récupération du cookie
-export function getCookie(name: string | null) {
+export function getCookie(name: string) {
   const match = document.cookie
     .split("; ")
     .find((row) => row.startsWith(`${name}=`));
