@@ -2,7 +2,8 @@ import RegisterForm from "@/components/forms/RegisterForm/RegisterForm";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Sign In",
+  title: "Inscription",
+  description: "Inscription utilisateur",
 };
 
 export default function Register() {
