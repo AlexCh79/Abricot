@@ -55,8 +55,8 @@ export async function updateProfile(data: {
 
 // Modification du mot de passe
 export async function updatePassword(data: {
-  currentPassword?: string;
-  newPassword?: string;
+  currentPassword: string;
+  newPassword: string;
 }): Promise<void> {
   await apiFetch("/auth/password", {
     method: "PUT",

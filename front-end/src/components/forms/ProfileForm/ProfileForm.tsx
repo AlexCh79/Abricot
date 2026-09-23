@@ -60,7 +60,7 @@ export default function ProfileForm() {
       setEmail(user.email);
       setSuccess(
         wantsPasswordChange
-          ? "Votre mot de passe a bien été mis à jour"
+          ? "Vos informations et votre mot de passe ont bien été mis à jour."
           : "Vos informations ont bien été mises à jour.",
       );
     } catch (err) {
@@ -133,7 +133,7 @@ export default function ProfileForm() {
             name="newPassword"
             value={newPassword}
             autoComplete="new-password"
-            type="newPassword"
+            type="password"
             aria-describedby="password-hint"
             onChange={(e) => setNewPassword(e.target.value)}
           />
