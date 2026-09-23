@@ -1,0 +1,79 @@
+@use "@/styles/variables" as *;
+
+.profilePage {
+  background-color: $color-white;
+  border: 1px solid $color-grey-200;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  text-align: left;
+  gap: 41px;
+  margin: 57px auto;
+  padding: 40px 59px;
+  max-width: 1215px;
+}
+
+.profileFormTitleWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 41px;
+}
+
+.profileFormSubtitle {
+  font-size: $body-m;
+  color: $color-grey-600;
+}
+
+.profileForm {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.profileFormGroupField {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.profileFormLabel {
+  font-size: $body-m;
+}
+
+.profileInput {
+  border: 1px solid $color-grey-200;
+  border-radius: 4px;
+  padding: 19px 17px;
+  width: fit-content;
+  max-width: 1097px;
+  height: 53px;
+  background-color: $color-white;
+  color: $color-grey-600;
+  font-size: $body-xs;
+  @media screen and (min-width: 750px) {
+    min-width: 1097px;
+  }
+  @media screen and (max-width: 749px) {
+    width: 250px;
+  }
+}
+
+.btnWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  @media screen and (max-width: 749px) {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+.errorText {
+  color: $error-red;
+  font-size: $body-s;
+  text-align: center;
+}
