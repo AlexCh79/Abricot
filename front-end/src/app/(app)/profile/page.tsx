@@ -1,19 +1,9 @@
-"use client";
-import { Button } from "@/components/buttons/Button/Button";
-import { logout } from "@/services/authService";
-import { useRouter } from "next/navigation";
+import type { Metadata } from "next";
+import LogoutForm from "@/components/forms/LogoutForm/LogoutForm";
 
+export const metadata: Metadata = {
+  title: "Mon compte",
+};
 export default function Profile() {
-  const router = useRouter();
-
-  const handleLogout = () => {
-    logout();
-    router.replace("/login");
-  };
-
-  return (
-    <div>
-      <Button label="Se déconnecter" type="button" onClick={handleLogout} />
-    </div>
-  );
+  return <LogoutForm />;
 }
