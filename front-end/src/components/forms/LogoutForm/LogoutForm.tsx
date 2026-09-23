@@ -9,6 +9,7 @@ export default function LogoutForm() {
   const handleLogout = () => {
     logout();
     router.replace("/login");
+    router.refresh();
   };
 
   return (
