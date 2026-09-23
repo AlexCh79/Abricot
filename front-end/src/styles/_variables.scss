@@ -1,9 +1,14 @@
+@use "sass:color";
 /* Palette de couleurs */
 
 /* Brand */
 $color-brand-dark-orange: #d3590b;
 $color-brand-main-orange: #ff8b42;
 $color-brand-light-orange: #ffe8d9;
+$color-brand-orange-text: color.adjust(
+  $color-brand-dark-orange,
+  $lightness: -8%
+);
 
 /* Neutral */
 $color-grey-950: #0f0f0f;
@@ -22,7 +27,7 @@ $error-red: #ef4444;
 $error-red-light: #ffe0e0;
 $info-blue: #3b82f6;
 $info-blue-light: #e0ecff;
-$warning-orange: E08D00;
+$warning-orange: #e08d00;
 $warning-orange-light: #fff0d7;
 
 /* -------- */

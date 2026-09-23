@@ -3,7 +3,7 @@ import { Button } from "@/components/buttons/Button/Button";
 import { logout } from "@/services/authService";
 import { useRouter } from "next/navigation";
 
-export default function Account() {
+export default function Profile() {
   const router = useRouter();
 
   const handleLogout = () => {

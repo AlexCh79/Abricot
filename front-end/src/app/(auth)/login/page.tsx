@@ -22,8 +22,12 @@ export default function Login() {
     try {
       await login(email, password);
       router.push("/dashboard");
-    } catch {
-      setError("L'identifiant ou le mot de passe sont erronés.");
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : "L'identifiant ou le mot de passe sont erronés.",
+      );
     }
   };
 
