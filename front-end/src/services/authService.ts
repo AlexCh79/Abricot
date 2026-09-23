@@ -52,3 +52,14 @@ export async function updateProfile(data: {
 
   return body.data.user;
 }
+
+// Modification du mot de passe
+export async function updatePassword(data: {
+  currentPassword?: string;
+  newPassword?: string;
+}): Promise<void> {
+  await apiFetch("/auth/password", {
+    method: "PUT",
+    body: JSON.stringify(data),
+  });
+}

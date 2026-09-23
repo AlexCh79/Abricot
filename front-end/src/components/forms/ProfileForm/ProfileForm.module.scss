@@ -87,3 +87,10 @@
   color: $success-green;
   font-size: $body-s;
 }
+
+.passwordHint {
+  opacity: 0.9;
+  color: $color-grey-800;
+  text-align: left;
+  font-size: $body-xs;
+}

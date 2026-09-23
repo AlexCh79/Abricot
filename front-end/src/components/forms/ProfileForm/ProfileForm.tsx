@@ -4,16 +4,21 @@ import styles from "./ProfileForm.module.scss";
 import { useState, useEffect } from "react";
 import LogoutForm from "../LogoutForm/LogoutForm";
 import { Button } from "@/components/buttons/Button/Button";
-import { getProfile, updateProfile } from "@/services/authService";
+import {
+  getProfile,
+  updateProfile,
+  updatePassword,
+} from "@/services/authService";
 import type { User } from "@/types/User";
 
 export default function ProfileForm() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [currentPassword, setCurrentPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [success, setSuccess] = useState("");
+  const [newPassword, setNewPassword] = useState("");
 
   useEffect(() => {
     const loadProfile = async () => {
@@ -33,11 +38,31 @@ export default function ProfileForm() {
   const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
+    setSuccess("");
+
+    // Changement du mot de passe à part (deux requêtes séparées dans l'API)
+    const wantsPasswordChange = currentPassword !== "" || newPassword !== "";
+    if (wantsPasswordChange && (currentPassword === "" || newPassword === "")) {
+      setError(
+        "Pour changer de mot de passe, veuillez renseigner le mot de passe actuel et le nouveau.",
+      );
+      return;
+    }
+
     try {
+      if (wantsPasswordChange) {
+        await updatePassword({ currentPassword, newPassword });
+        setCurrentPassword("");
+        setNewPassword("");
+      }
       const user = await updateProfile({ name, email });
       setName(user.name ?? "");
       setEmail(user.email);
-      setSuccess("Vos informations ont bien été mises à jour.");
+      setSuccess(
+        wantsPasswordChange
+          ? "Votre mot de passe a bien été mis à jour"
+          : "Vos informations ont bien été mises à jour.",
+      );
     } catch (err) {
       setError(
         err instanceof Error
@@ -84,18 +109,39 @@ export default function ProfileForm() {
           />
         </div>
         <div className={styles.profileFormGroupField}>
-          <label className={styles.profileFormLabel} htmlFor="password">
-            Mot de passe
+          <label className={styles.profileFormLabel} htmlFor="currentPassword">
+            Mot de passe actuel
           </label>
           <input
             className={styles.profileInput}
-            id="password"
-            name="password"
-            value={password}
+            id="currentPassword"
+            name="currentPassword"
+            value={currentPassword}
             type="password"
-            onChange={(e) => setPassword(e.target.value)}
+            autoComplete="current-password"
+            onChange={(e) => setCurrentPassword(e.target.value)}
             placeholder="●●●●●●●●●●●"
           />
+        </div>
+        <div className={styles.profileFormGroupField}>
+          <label className={styles.profileFormLabel} htmlFor="newPassword">
+            Nouveau mot de passe
+          </label>
+          <input
+            className={styles.profileInput}
+            id="newPassword"
+            name="newPassword"
+            value={newPassword}
+            autoComplete="new-password"
+            type="newPassword"
+            aria-describedby="password-hint"
+            onChange={(e) => setNewPassword(e.target.value)}
+          />
+          <p id="password-hint" className={styles.passwordHint}>
+            8 caractères minimum, avec une majuscule, une minuscule, un chiffre
+            et un caractère spécial (@$!%*?&). Laissez vide pour ne pas le
+            changer.
+          </p>
         </div>
         {error && (
           <span role="alert" className={styles.errorText}>
