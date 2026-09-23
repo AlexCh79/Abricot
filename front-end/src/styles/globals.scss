@@ -1,5 +1,5 @@
-@use './variables' as *;
-@use './mixins'as *;
+@use "./variables" as *;
+@use "./mixins" as *;
 
 * {
   margin: 0;
@@ -14,13 +14,17 @@ body {
   font-weight: normal;
 }
 
-
 /* Typographie */
-h1, h2, h3, h4, h5 {
+h1,
+h2,
+h3,
+h4,
+h5 {
   font-family: $font-heading;
 }
 
-h1, h2 {
+h1,
+h2 {
   font-weight: bold;
 }
 
@@ -32,7 +36,9 @@ h2 {
   font-size: 2em; // 32 px
 }
 
-h3, h4, h5 {
+h3,
+h4,
+h5 {
   font-weight: 600; // semibold
 }
 
