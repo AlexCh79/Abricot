@@ -4,7 +4,7 @@ import styles from "./ProfileForm.module.scss";
 import { useState, useEffect } from "react";
 import LogoutForm from "../LogoutForm/LogoutForm";
 import { Button } from "@/components/buttons/Button/Button";
-import { getProfile } from "@/services/authService";
+import { getProfile, updateProfile } from "@/services/authService";
 import type { User } from "@/types/User";
 
 export default function ProfileForm() {
@@ -13,6 +13,7 @@ export default function ProfileForm() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [success, setSuccess] = useState("");
 
   useEffect(() => {
     const loadProfile = async () => {
@@ -32,6 +33,18 @@ export default function ProfileForm() {
   const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
+    try {
+      const user = await updateProfile({ name, email });
+      setName(user.name ?? "");
+      setEmail(user.email);
+      setSuccess("Vos informations ont bien été mises à jour.");
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Erreur dans la mise à jour des données.",
+      );
+    }
   };
 
   return (
@@ -87,6 +100,11 @@ export default function ProfileForm() {
         {error && (
           <span role="alert" className={styles.errorText}>
             {error}
+          </span>
+        )}
+        {success && (
+          <span role="status" className={styles.successText}>
+            {success}
           </span>
         )}
         <div className={styles.btnWrapper}>

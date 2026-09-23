@@ -39,3 +39,16 @@ export async function getProfile(): Promise<User> {
 
   return body.data.user;
 }
+
+// Modification des informations utilisateur
+export async function updateProfile(data: {
+  email?: string | null;
+  name?: string | null;
+}): Promise<User> {
+  const body = await apiFetch("/auth/profile", {
+    method: "PUT",
+    body: JSON.stringify(data),
+  });
+
+  return body.data.user;
+}
