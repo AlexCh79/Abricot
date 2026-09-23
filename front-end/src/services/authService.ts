@@ -1,5 +1,6 @@
 import { apiFetch } from "./api";
 import { setCookie, deleteCookie } from "../utils/cookies";
+import type { User } from "@/types/User";
 
 // Connexion utilisateur
 export async function login(email: string, password: string) {
@@ -27,5 +28,14 @@ export async function register(email: string, password: string) {
 
   // Création du token et stockage
   setCookie("token", body.data.token, 7);
+  return body.data.user;
+}
+
+// Récupération des informations utilisateur
+export async function getProfile(): Promise<User> {
+  const body = await apiFetch("/auth/profile", {
+    method: "GET",
+  });
+
   return body.data.user;
 }

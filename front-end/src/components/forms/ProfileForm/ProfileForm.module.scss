@@ -21,6 +21,11 @@
   gap: 41px;
 }
 
+.profileFormTitle {
+  font-weight: 600;
+  font-size: 1.125em; // 18px
+}
+
 .profileFormSubtitle {
   font-size: $body-m;
   color: $color-grey-600;

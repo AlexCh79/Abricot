@@ -1,17 +1,35 @@
 "use client";
 
 import styles from "./ProfileForm.module.scss";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import LogoutForm from "../LogoutForm/LogoutForm";
 import { Button } from "@/components/buttons/Button/Button";
+import { getProfile } from "@/services/authService";
+import type { User } from "@/types/User";
 
 export default function ProfileForm() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
-  const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
+  useEffect(() => {
+    const loadProfile = async () => {
+      try {
+        const user: User = await getProfile();
+        setName(user.name ?? "");
+        setEmail(user.email ?? "");
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "Profil indisponible");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    loadProfile();
+  }, []);
+
+  const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
   };
@@ -19,10 +37,14 @@ export default function ProfileForm() {
   return (
     <div className={styles.profilePage}>
       <div className={styles.profileFormTitleWrapper}>
-        <h5 className={styles.profileFormTitle}>Mon compte</h5>
+        <h1 className={styles.profileFormTitle}>Mon compte</h1>
         <span className={styles.profileFormSubtitle}>{name}</span>
       </div>
-      <form className={styles.profileForm} onSubmit={handleSubmit}>
+      <form
+        className={styles.profileForm}
+        aria-busy={isLoading}
+        onSubmit={handleSubmit}
+      >
         <div className={styles.profileFormGroupField}>
           <label className={styles.profileFormLabel} htmlFor="name">
             Nom
@@ -33,7 +55,6 @@ export default function ProfileForm() {
             name="name"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            placeholder={name}
           />
         </div>
         <div className={styles.profileFormGroupField}>
@@ -47,7 +68,6 @@ export default function ProfileForm() {
             value={email}
             type="email"
             onChange={(e) => setEmail(e.target.value)}
-            placeholder={email}
           />
         </div>
         <div className={styles.profileFormGroupField}>
@@ -64,12 +84,16 @@ export default function ProfileForm() {
             placeholder="●●●●●●●●●●●"
           />
         </div>
-        {error && <span className={styles.errorText}>{error}</span>}
+        {error && (
+          <span role="alert" className={styles.errorText}>
+            {error}
+          </span>
+        )}
+        <div className={styles.btnWrapper}>
+          <Button type="submit" label="Modifier les informations" />
+          <LogoutForm />
+        </div>
       </form>
-      <div className={styles.btnWrapper}>
-        <Button type="submit" label="Modifier les informations" />
-        <LogoutForm />
-      </div>
     </div>
   );
 }
