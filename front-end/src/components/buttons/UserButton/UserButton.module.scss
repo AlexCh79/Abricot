@@ -12,7 +12,8 @@
   text-decoration: none;
   transition: all 300ms ease-out;
   &:hover,
-  &:active {
+  &:focus-visible,
+  &[aria-current="page"] {
     background-color: $color-brand-dark-orange;
     color: $color-white;
   }
