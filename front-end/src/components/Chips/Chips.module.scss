@@ -1,0 +1,31 @@
+@use "@/styles/variables" as *;
+
+.btnLink {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+  color: $color-brand-orange-text;
+  background-color: $color-white;
+  padding: 14px 16px;
+  width: fit-content;
+  max-width: 139px;
+  height: auto;
+  max-height: 45px;
+  font-size: $body-s;
+  gap: 10px;
+  border-radius: 8px;
+  margin-top: 50px;
+  border: none;
+  cursor: pointer;
+  transition: all 300ms ease-out;
+  &:hover {
+    background-color: $color-brand-light-orange;
+  }
+}
+
+.icons {
+  width: auto;
+  height: 17px;
+}

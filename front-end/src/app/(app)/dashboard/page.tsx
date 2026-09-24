@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Button } from "@/components/buttons/Button/Button";
 import styles from "./Dashboard.module.scss";
 import Greeting from "@/components/Greeting/Greeting";
+import { Chips } from "@/components/Chips/Chips";
 
 export const metadata: Metadata = {
   title: "Tableau de bord",
@@ -16,6 +17,10 @@ export default function Dashboard() {
           <Greeting className={styles.dashboardSubtitle} />
         </div>
         <Button type="button" label="+ Créer un projet" />
+      </div>
+      <div className={styles.btnBar}>
+        <Chips label="Liste" source="/icon_my_tasks.svg" />
+        <Chips label="Kanban" source="/icon_kanban.svg" />
       </div>
     </div>
   );

@@ -32,3 +32,9 @@
 .dashboardSubtitle {
   font-size: $body-l;
 }
+
+.btnBar {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}

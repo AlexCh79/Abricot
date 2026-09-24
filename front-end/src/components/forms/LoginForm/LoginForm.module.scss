@@ -95,6 +95,9 @@
 
 .loginLink {
   color: $color-brand-orange-text;
+  &:focus-visible {
+    color: $color-grey-950;
+  }
 }
 
 .errorText {

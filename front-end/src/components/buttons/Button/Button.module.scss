@@ -14,6 +14,8 @@
   text-wrap: nowrap;
   cursor: pointer;
   &:hover {
-    background-color: $color-grey-950;
+    background-color: $color-white;
+    border: 1px solid $color-brand-dark-orange;
+    color: $color-brand-orange-text;
   }
 }
