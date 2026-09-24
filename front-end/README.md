@@ -212,3 +212,4 @@ Les maquettes fournies ne couvrent ni la page 404 ni les versions mobiles : ces 
 ## Auteur
 
 Alexandra Chanteloup - septembre 2026
+Lien gitHub : https://github.com/AlexCh79/Abricot.git
