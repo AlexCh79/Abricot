@@ -3,6 +3,7 @@ import { Button } from "@/components/buttons/Button/Button";
 import styles from "./Dashboard.module.scss";
 import Greeting from "@/components/Greeting/Greeting";
 import { Chips } from "@/components/Chips/Chips";
+import { Search } from "@/components/Inputs/Search";
 
 export const metadata: Metadata = {
   title: "Tableau de bord",
@@ -21,6 +22,21 @@ export default function Dashboard() {
       <div className={styles.btnBar}>
         <Chips label="Liste" source="/icon_my_tasks.svg" />
         <Chips label="Kanban" source="/icon_kanban.svg" />
+      </div>
+      <div className={styles.dashboardContent}>
+        <div className={styles.dashboardContentHead}>
+          <div className={styles.dashboardContentTitleBar}>
+            <h2 className={styles.dashboardContentTitle}>
+              Mes tâches assignées
+            </h2>
+            <p className={styles.dashboardContentSubtitle}>
+              Par ordre de priorité
+            </p>
+          </div>
+          <div className={styles.searchBar}>
+            <Search />
+          </div>
+        </div>
       </div>
     </div>
   );

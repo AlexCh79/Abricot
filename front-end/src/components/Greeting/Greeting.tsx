@@ -14,7 +14,7 @@ export default function Greeting({ className }: GreetingProps) {
     const loadName = async () => {
       try {
         const user = await getProfile();
-        setName(user.name);
+        setName(user.name ?? "");
       } catch {}
     };
     loadName();

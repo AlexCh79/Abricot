@@ -38,3 +38,42 @@
   flex-direction: row;
   gap: 10px;
 }
+
+.dashboardContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid $color-grey-200;
+  border-radius: 10px;
+  padding: 40px 59px;
+  gap: 41px;
+  margin-top: 30px;
+  background-color: $color-white;
+}
+
+.dashboardContentHead {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.dashboardContentTitleBar {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 8px;
+}
+
+.dashboardContentTitle {
+  font-size: 1.125em; // 18px
+  font-weight: 600;
+}
+
+.dashboardContentSubtitle {
+  font-size: $body-m;
+  color: $color-grey-600;
+}

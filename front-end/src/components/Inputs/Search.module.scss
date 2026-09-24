@@ -1,0 +1,27 @@
+@use "@/styles/variables" as *;
+
+.inputWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $color-white;
+  border: 1px solid $color-grey-200;
+  border-radius: 8px;
+  padding: 23px 32px;
+  width: 357px;
+  height: auto;
+  max-height: 63px;
+  color: $color-grey-600;
+}
+
+.searchInput {
+  font-size: $body-s;
+  border: none;
+}
+
+.searchIcon,
+.searchBtn {
+  border: none;
+  background-color: $color-white;
+}
