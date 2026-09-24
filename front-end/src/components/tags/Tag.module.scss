@@ -1,0 +1,41 @@
+@use "@/styles/variables" as *;
+
+.tag {
+  width: fit-content;
+  max-width: 64px;
+  height: auto;
+  max-height: 25px;
+  border-radius: 50px;
+  padding: 4px 16px;
+  font-size: $body-s;
+}
+
+.success {
+  background-color: $success-green-light;
+  color: $success-green;
+}
+
+.error {
+  background-color: $error-red-light;
+  color: $error-red;
+}
+
+.warning {
+  background-color: $warning-orange-light;
+  color: $warning-orange;
+}
+
+.info {
+  background-color: $info-blue-light;
+  color: $info-blue;
+}
+
+.normal {
+  background-color: $color-brand-light-orange;
+  color: $color-brand-orange-text;
+}
+
+.disabled {
+  background-color: $color-grey-200;
+  color: $color-grey-600;
+}
