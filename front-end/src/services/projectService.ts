@@ -33,3 +33,11 @@ export async function getProjectTasks(id: string): Promise<Task[]> {
 
   return body.data.tasks;
 }
+
+// Récupération d'un projet en particulier
+export async function getProject(id: string): Promise<Project> {
+  const body = await apiFetch(`/projects/${id}`, {
+    method: "GET",
+  });
+  return body.data.project;
+}
