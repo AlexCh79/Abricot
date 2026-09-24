@@ -41,3 +41,44 @@ export async function getProject(id: string): Promise<Project> {
   });
   return body.data.project;
 }
+
+// Mise à jour d'un projet
+export async function updateProject(
+  id: string,
+  data: { name?: string; description?: string },
+): Promise<Project> {
+  const body = await apiFetch(`/projects/${id}`, {
+    method: "PUT",
+    body: JSON.stringify(data),
+  });
+
+  return body.data.project;
+}
+
+// Suppression d'un projet
+export async function deleteProject(id: string): Promise<void> {
+  await apiFetch(`/projects/${id}`, {
+    method: "DELETE",
+  });
+}
+
+// Ajout d'un contributeur au projet
+export async function addContributor(
+  id: string,
+  data: { email: string; role?: "ADMIN" | "CONTRIBUTOR" },
+): Promise<void> {
+  await apiFetch(`/projects/${id}/contributors`, {
+    method: "POST",
+    body: JSON.stringify(data),
+  });
+}
+
+// Retrait d'un contributeur au projet
+export async function removeContributor(
+  id: string,
+  userId: string,
+): Promise<void> {
+  await apiFetch(`/projects/${id}/contributors/${userId}`, {
+    method: "DELETE",
+  });
+}
