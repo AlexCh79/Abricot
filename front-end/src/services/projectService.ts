@@ -1,6 +1,5 @@
 import { apiFetch } from "./api";
 import type { Project } from "@/types/Project";
-import type { Task } from "@/types/Task";
 
 // Création d'un nouveau projet
 export async function createProject(data: {
@@ -23,15 +22,6 @@ export async function getProjects(): Promise<Project[]> {
   });
 
   return body.data.projects;
-}
-
-// Récupération de toutes les tâches d'un projet
-export async function getProjectTasks(id: string): Promise<Task[]> {
-  const body = await apiFetch(`/projects/${id}/tasks`, {
-    method: "GET",
-  });
-
-  return body.data.tasks;
 }
 
 // Récupération d'un projet en particulier
