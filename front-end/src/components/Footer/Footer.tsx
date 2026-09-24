@@ -7,6 +7,7 @@ export const Footer = () => {
         src="/logo_black.svg"
         aria-hidden="true"
         className={styles.footerLogo}
+        alt=""
       />
       <span className={styles.footerContent}>Abricot 2025</span>
     </footer>

@@ -13,6 +13,10 @@
   height: auto;
   max-height: 63px;
   color: $color-grey-600;
+  @media screen and (max-width: 749px) {
+    width: 100%;
+    padding: 15px 20px;
+  }
 }
 
 .searchInput {
