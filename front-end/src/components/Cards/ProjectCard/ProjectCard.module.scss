@@ -81,10 +81,19 @@
 }
 
 .cardProgressRange {
-  color: $color-grey-200;
+  background-color: $color-grey-200;
   height: 7px;
   border-radius: 40px;
   width: 100%;
+  overflow: hidden;
+}
+
+.cardProgressFill {
+  display: block;
+  height: 100%;
+  border-radius: 50px;
+  background-color: $color-brand-dark-orange;
+  transition: width 300ms ease-out;
 }
 
 .cardTasksRange {

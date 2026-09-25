@@ -3,18 +3,29 @@
 import { useState, useEffect } from "react";
 import { getProjects } from "@/services/projectService";
 import { ProjectCard } from "@/components/Cards/ProjectCard/ProjectCard";
-import type { Project } from "@/types/Project";
 import styles from "./ProjectList.module.scss";
+import { getTasks } from "@/services/taskService";
+import type { ProjectWithTasks } from "@/types/ProjectsWithTasks";
 
 export const ProjectList = () => {
-  const [projects, setProjects] = useState<Project[]>([]);
+  const [projects, setProjects] = useState<ProjectWithTasks[]>([]);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const loadProjects = async () => {
       try {
-        setProjects(await getProjects());
+        const loadedProjects = await getProjects();
+        // Récupération des tâches dans les projets
+        const tasksByProject = await Promise.all(
+          loadedProjects.map((project) => getTasks(project.id)),
+        );
+        setProjects(
+          loadedProjects.map((project, index) => ({
+            ...project,
+            tasks: tasksByProject[index],
+          })),
+        );
       } catch (err) {
         setError(err instanceof Error ? err.message : "Projets indisponibles.");
       } finally {

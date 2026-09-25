@@ -1,15 +1,17 @@
 import Link from "next/link";
 import Image from "next/image";
-import type { Project } from "@/types/Project";
 import styles from "./ProjectCard.module.scss";
 import { countTeam } from "@/utils/team";
 import { getInitials } from "@/utils/name";
+import { getProgress } from "@/utils/tasks";
+import { ProjectWithTasks } from "@/types/ProjectsWithTasks";
 
 type ProjectCardProps = {
-  project: Project;
+  project: ProjectWithTasks;
 };
 
 export function ProjectCard({ project }: ProjectCardProps) {
+  const { done, total, percent } = getProgress(project.tasks);
   return (
     <div className={styles.cardContainer}>
       <div className={styles.cardTitleWrapper}>
@@ -25,11 +27,26 @@ export function ProjectCard({ project }: ProjectCardProps) {
       <div className={styles.cardContent}>
         <div className={styles.cardProgressWrapper}>
           <span className={styles.cardProgressText}>Progression</span>
-          <span className={styles.cardProgressPercent}>0%</span>
+          <span className={styles.cardProgressPercent}>{percent}%</span>
         </div>
         <div className={styles.cardProgressRangeWrapper}>
-          <span className={styles.cardProgressRange}></span>
-          <span className={styles.cardTasksRange}>0 / 2 tâches terminées</span>
+          <div
+            className={styles.cardProgressRange}
+            role="progressbar"
+            aria-valuenow={percent}
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-label={`Progression du projet ${project.name}`}
+          >
+            <span
+              className={styles.cardProgressFill}
+              style={{ width: `${percent}%` }}
+            />
+          </div>
+
+          <span className={styles.cardTasksRange}>
+            {done} / {total} tâches terminées
+          </span>
         </div>
       </div>
       <div className={styles.cardBottom}>
