@@ -11,8 +11,10 @@ import {
 } from "@/services/authService";
 import type { User } from "@/types/User";
 import { splitName, joinName } from "@/utils/name";
+import { useUser } from "@/context/UserContext";
 
 export default function ProfileForm() {
+  const { refresh } = useUser();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -68,6 +70,8 @@ export default function ProfileForm() {
       setFirstName(names.firstName);
       setLastName(names.lastName);
       setEmail(user.email);
+
+      await refresh();
       setSuccess(
         wantsPasswordChange
           ? "Vos informations et votre mot de passe ont bien été mis à jour."
