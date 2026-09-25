@@ -48,7 +48,9 @@ export function ProjectCard({ project }: ProjectCardProps) {
         </div>
         <div className={styles.teamTagsWrapper}>
           <div className={styles.teamPropertyTags}>
-            <div className={styles.teamPropertyUserIcon}>AD</div>
+            <div className={styles.teamPropertyUserIcon}>
+              {getInitials(project.owner?.name ?? null)}
+            </div>
             <div className={styles.teamPropertyTag}>Propriétaire</div>
           </div>
           <div className={styles.memberTagTeamWrapper}>
