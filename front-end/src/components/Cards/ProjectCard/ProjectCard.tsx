@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import type { Project } from "@/types/Project";
 import styles from "./ProjectCard.module.scss";
+import { countTeam } from "@/utils/team";
 
 type ProjectCardProps = {
   project: Project;
@@ -40,7 +41,9 @@ export function ProjectCard({ project }: ProjectCardProps) {
             aria-hidden="true"
             alt=""
           />
-          <span className={styles.teamCount}>Équipe (3)</span>
+          <span className={styles.teamCount}>
+            Équipe ({countTeam(project)})
+          </span>
         </div>
         <div className={styles.teamTagsWrapper}>
           <div className={styles.teamPropertyTags}>
