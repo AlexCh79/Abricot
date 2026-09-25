@@ -15,3 +15,9 @@ export function splitName(name: string | null): {
 export function joinName(firstName: string, lastName: string): string {
   return [firstName.trim(), lastName.trim()].filter(Boolean).join(" ");
 }
+
+// Récupération des initiales
+export function getInitials(name: string | null): string {
+  const { firstName, lastName } = splitName(name); // Découpage du nom
+  return `${firstName[0] ?? ""}${lastName[0] ?? ""}`.toUpperCase();
+}

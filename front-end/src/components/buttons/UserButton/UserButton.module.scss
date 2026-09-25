@@ -18,3 +18,9 @@
     color: $color-white;
   }
 }
+
+.errorText {
+  color: $error-red;
+  font-size: $body-s;
+  text-align: center;
+}

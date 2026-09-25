@@ -3,6 +3,7 @@ import Image from "next/image";
 import type { Project } from "@/types/Project";
 import styles from "./ProjectCard.module.scss";
 import { countTeam } from "@/utils/team";
+import { getInitials } from "@/utils/name";
 
 type ProjectCardProps = {
   project: Project;
@@ -51,8 +52,11 @@ export function ProjectCard({ project }: ProjectCardProps) {
             <div className={styles.teamPropertyTag}>Propriétaire</div>
           </div>
           <div className={styles.memberTagTeamWrapper}>
-            <div className={styles.memberTagTeam}>AC</div>
-            <div className={styles.memberTagTeam}>BE</div>
+            {project.members.map((member) => (
+              <div key={member.id} className={styles.memberTagTeam}>
+                {getInitials(member.user.name)}
+              </div>
+            ))}
           </div>
         </div>
       </div>
