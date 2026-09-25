@@ -50,3 +50,37 @@ export async function getComment(
 
   return body.data.comment;
 }
+
+// Mise à jour d'un commentaire
+export async function updateComment(
+  projectId: string,
+  taskId: string,
+  commentId: string,
+  data: {
+    content: string;
+  },
+): Promise<Comment> {
+  const body = await apiFetch(
+    `/projects/${projectId}/tasks/${taskId}/comments/${commentId}`,
+    {
+      method: "PUT",
+      body: JSON.stringify(data),
+    },
+  );
+
+  return body.data.comment;
+}
+
+// Suppression d'un commentaire
+export async function deleteComment(
+  projectId: string,
+  taskId: string,
+  commentId: string,
+): Promise<void> {
+  await apiFetch(
+    `/projects/${projectId}/tasks/${taskId}/comments/${commentId}`,
+    {
+      method: "DELETE",
+    },
+  );
+}
