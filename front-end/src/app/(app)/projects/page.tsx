@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import styles from "./Projects.module.scss";
 import { Button } from "@/components/buttons/Button/Button";
+import { ProjectList } from "./ProjectList";
 
 export const metadata: Metadata = {
   title: "Projets",
@@ -16,6 +17,9 @@ export default function Projects() {
           <p className={styles.projectsSubtitle}>Gérez vos projets</p>
         </div>
         <Button type="button" label="+ Créer un projet" />
+      </div>
+      <div className={styles.projectsContent}>
+        <ProjectList />
       </div>
     </div>
   );

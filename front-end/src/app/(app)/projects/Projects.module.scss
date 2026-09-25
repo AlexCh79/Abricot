@@ -1,4 +1,5 @@
 @use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
 
 .projectsPage {
   display: flex;
@@ -12,6 +13,10 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  @media screen and (max-width: 749px) {
+    flex-direction: column;
+    gap: 30px;
+  }
 }
 
 .projectsTitleWrapper {
@@ -26,9 +31,13 @@
 
 .projectsTitle {
   color: $color-grey-800;
-  font-size: 1.5em; // 24px
+  @include font-h4;
 }
 
 .projectsSubtitle {
   font-size: $body-l;
+}
+
+.projectsContent {
+  margin: 60px 0;
 }

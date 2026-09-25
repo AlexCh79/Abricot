@@ -1,0 +1,166 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+
+.cardContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid $color-grey-200;
+  border-radius: 10px;
+  background-color: $color-white;
+  width: 380px;
+  height: fit-content;
+  padding: 30px 34px;
+  gap: 56px;
+}
+
+.cartTitleWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 312px;
+  max-width: max-content;
+}
+
+.errorText {
+  color: $error-red;
+  font-size: $body-s;
+  text-align: center;
+}
+
+.cardTitle,
+.projectLink,
+.projectLink:visited {
+  font-weight: 600;
+  color: $color-grey-800;
+  @include font-h5;
+  text-decoration: none;
+}
+
+.cardSubtitle {
+  font-size: $body-xs;
+  color: $color-grey-600;
+  font-weight: 400;
+  line-clamp: 2;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.cardProgressWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.cardProgressText {
+  font-size: $body-xs;
+  color: $color-grey-600;
+}
+
+.cardProgressPercent {
+  font-size: $body-xs;
+  color: $color-grey-800;
+}
+
+.cardProgressRangeWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.cardProgressRange {
+  color: $color-grey-200;
+  height: 7px;
+  border-radius: 40px;
+  width: 100%;
+}
+
+.cardTasksRange {
+  color: $color-grey-600;
+  font-size: $body-2xs;
+}
+
+.cardBottom {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+  align-items: flex-start;
+}
+
+.teamNumberWrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  width: fit-content;
+}
+
+.icon {
+  width: 12px;
+  height: 11px;
+}
+
+.teamCount {
+  font-size: $body-2xs;
+  color: $color-grey-600;
+}
+
+.teamTagsWrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+}
+
+.teamPropertyTags {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}
+
+.teamPropertyUserIcon {
+  border-radius: 50%;
+  padding: 9px 7px;
+  background-color: $color-brand-light-orange;
+  font-size: $body-2xs;
+  color: $color-grey-950;
+  text-align: center;
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+
+.teamPropertyTag {
+  border-radius: 50px;
+  padding: 4px 16px;
+  background-color: $color-brand-light-orange;
+  font-size: $body-s;
+  color: $color-brand-orange-text;
+  vertical-align: middle;
+}
+
+.memberTagTeamWrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.memberTagTeam {
+  border-radius: 50%;
+  border: 1px solid $color-white;
+  background-color: $color-grey-200;
+  padding: 9px 7px;
+  font-size: $body-2xs;
+  letter-spacing: 2%;
+  text-transform: uppercase;
+  color: $color-grey-950;
+}

@@ -1,0 +1,23 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+
+.list,
+.listItem {
+  list-style: none;
+  color: $color-grey-800;
+  @include font-h5;
+}
+
+.list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  row-gap: 16px;
+  column-gap: 16px;
+  @media screen and (max-width: 749px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+  }
+}

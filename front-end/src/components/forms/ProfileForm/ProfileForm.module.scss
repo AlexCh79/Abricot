@@ -1,4 +1,5 @@
 @use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
 
 .profilePage {
   background-color: $color-white;
@@ -22,8 +23,7 @@
 }
 
 .profileFormTitle {
-  font-weight: 600;
-  font-size: 1.125em; // 18px
+  @include font-h5;
 }
 
 .profileFormSubtitle {

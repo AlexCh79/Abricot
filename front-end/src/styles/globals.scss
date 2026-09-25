@@ -5,13 +5,13 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: $font-text;
+  line-height: auto;
+  font-weight: 400;
 }
 
 body {
   background-color: $color-grey-50;
-  font-family: $font-text;
-  line-height: auto;
-  font-weight: normal;
 }
 
 /* Typographie */
@@ -24,33 +24,22 @@ h5 {
   color: $color-grey-800;
 }
 
-h1,
-h2 {
-  font-weight: bold;
-}
-
 h1 {
-  font-size: 2.5em; // 40 px
+  @include font-h1;
 }
 
 h2 {
-  font-size: 2em; // 32 px
-}
-
-h3,
-h4,
-h5 {
-  font-weight: 600; // semibold
+  @include font-h2;
 }
 
 h3 {
-  font-size: 1.75em; // 28px
+  @include font-h3;
 }
 
 h4 {
-  font-size: 1.5em; // 24px
+  @include font-h4;
 }
 
 h5 {
-  font-size: 1.125em; // 18px
+  @include font-h5;
 }
