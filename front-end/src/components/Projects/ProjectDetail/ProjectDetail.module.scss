@@ -158,3 +158,93 @@
   font-size: $body-s;
   color: $color-grey-600;
 }
+
+.detailContentWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  border-radius: 10px;
+  border: 1px solid $color-grey-200;
+  background-color: $color-white;
+  padding: 40px 59px;
+  gap: 41px;
+}
+
+.detailContentTitleBanner {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  gap: 24px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.detailContentLeftBanner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  width: 190px;
+}
+
+.detailContentTitle {
+  @include font-h5;
+  color: $color-grey-800;
+}
+
+.detailContentSubtitle {
+  font-size: $body-m;
+  color: $color-grey-600;
+}
+
+.detailContentRightBanner {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+}
+
+.detailContentBannerViews {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+.detailContentBannerSelectStatus {
+  border-radius: 8px;
+  border: 1px solid $color-grey-200;
+  background-color: $color-white;
+  padding: 18px 60px 18px 32px;
+  width: 152px;
+  height: 63px;
+  font-size: $body-s;
+  color: $color-grey-600;
+  appearance: none;
+  background-image: url("/icon_bottom_arrow.svg");
+  background-repeat: no-repeat;
+  background-position: right 32px center;
+  background-size: 16px 18px;
+  cursor: pointer;
+}
+
+.detailContentBannerSearch {
+  width: 283px;
+  border-radius: 8px;
+  border: 1px solid $color-grey-200;
+  background-color: $color-white;
+  padding: 23px 32px;
+  height: 63px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.detailContentBannerSearchInput {
+  border: none;
+  font-size: $body-s;
+  color: $color-grey-600;
+}

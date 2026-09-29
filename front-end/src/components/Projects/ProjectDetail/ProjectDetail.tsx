@@ -11,6 +11,8 @@ import { SquareIaButton } from "@/components/buttons/IaButton/IaButton";
 import { getInitials } from "@/utils/name";
 import { countTeam } from "@/utils/team";
 import { ProjectModal } from "@/components/Modal/ProjectModal";
+import { Chips } from "@/components/Chips/Chips";
+import { Search } from "@/components/Inputs/Search";
 
 type ProjectDetailProps = {
   projectId: string;
@@ -113,6 +115,33 @@ export const ProjectDetail = ({ projectId }: ProjectDetailProps) => {
           onDeleted={() => router.replace("/projects")}
         />
       )}
+      <div className={styles.detailContentWrapper}>
+        <div className={styles.detailContentTitleBanner}>
+          <div className={styles.detailContentLeftBanner}>
+            <h3 className={styles.detailContentTitle}>Tâches</h3>
+            <p className={styles.detailContentSubtitle}>
+              Par ordre de priorité
+            </p>
+          </div>
+          <div className={styles.detailContentRightBanner}>
+            <div className={styles.detailContentBannerViews}>
+              <Chips label="Liste" source="/icon_my_tasks.svg" isActive />
+              <Chips
+                label="Calendrier"
+                source="/icon_kanban.svg"
+                isActive={false}
+              />
+            </div>
+            <select className={styles.detailContentBannerSelectStatus}>
+              <option value="">Statut</option>
+              <option value="TODO">À faire</option>
+              <option value="IN_PROGRESS">En Cours</option>
+              <option value="DONE">Terminée</option>
+            </select>
+            <Search placeholder="Rechercher une tâche" />
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

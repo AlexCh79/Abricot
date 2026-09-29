@@ -16,11 +16,11 @@
   font-size: $body-s;
   gap: 10px;
   border-radius: 8px;
-  margin-top: 50px;
   border: none;
   cursor: pointer;
   transition: all 300ms ease-out;
-  &:hover {
+  &:hover,
+  &[aria-pressed="true"] {
     background-color: $color-brand-light-orange;
   }
 }

@@ -4,10 +4,14 @@ import Image from "next/image";
 import styles from "./Search.module.scss";
 
 type SearchProps = {
+  placeholder?: string;
   onSearch?: (value: string) => void;
 };
 
-export const Search = ({ onSearch }: SearchProps) => {
+export const Search = ({
+  placeholder = "Rechercher",
+  onSearch,
+}: SearchProps) => {
   const [item, setItem] = useState("");
 
   const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
@@ -22,8 +26,8 @@ export const Search = ({ onSearch }: SearchProps) => {
         name="search"
         value={item}
         onChange={(e) => setItem(e.target.value)}
-        placeholder="Rechercher une tâche"
-        aria-label="Rechercher une tâche"
+        placeholder={placeholder}
+        aria-label={placeholder}
         className={styles.searchInput}
       />
       <button

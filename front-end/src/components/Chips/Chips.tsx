@@ -4,11 +4,18 @@ import Image from "next/image";
 type ChipsProps = {
   label: string;
   source: string;
+  isActive?: boolean;
+  onClick?: () => void;
 };
 
-export const Chips = ({ label, source }: ChipsProps) => {
+export const Chips = ({ label, source, isActive, onClick }: ChipsProps) => {
   return (
-    <button type="button" className={styles.btnLink}>
+    <button
+      type="button"
+      className={styles.btnLink}
+      aria-pressed={isActive}
+      onClick={onClick}
+    >
       <Image
         src={source}
         aria-hidden="true"
