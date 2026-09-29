@@ -181,3 +181,43 @@
   white-space: nowrap;
   border: 0;
 }
+
+.contributorsList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+  padding: 0;
+  list-style: none;
+}
+
+.contributorsChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px;
+  border: none;
+  border-radius: 50px;
+  background-color: $color-brand-light-orange;
+  color: $color-brand-orange-text;
+  font-size: $body-xs;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background-color 150ms ease-out;
+
+  &:hover {
+    background-color: $error-red-light;
+    color: $error-red;
+  }
+
+  &:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+  }
+}
+
+.emptyText {
+  margin-top: 10px;
+  font-size: $body-xs;
+  color: $color-grey-600;
+}

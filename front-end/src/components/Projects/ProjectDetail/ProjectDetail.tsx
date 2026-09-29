@@ -9,6 +9,7 @@ import { Button } from "@/components/buttons/Button/Button";
 import { SquareIaButton } from "@/components/buttons/IaButton/IaButton";
 import { getInitials } from "@/utils/name";
 import { countTeam } from "@/utils/team";
+import { ProjectModal } from "@/components/Modal/ProjectModal";
 
 type ProjectDetailProps = {
   projectId: string;
@@ -18,6 +19,7 @@ export const ProjectDetail = ({ projectId }: ProjectDetailProps) => {
   const [project, setProject] = useState<ProjectWithTasks | null>(null);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [isEditOpen, setIsEditOpen] = useState(false);
 
   useEffect(() => {
     const loadProject = async () => {
@@ -56,7 +58,7 @@ export const ProjectDetail = ({ projectId }: ProjectDetailProps) => {
                 <button
                   type="button"
                   className={styles.detailHeaderLink}
-                  //   onClick={openEdit}
+                  onClick={() => setIsEditOpen(true)}
                 >
                   Modifier
                 </button>
@@ -101,6 +103,13 @@ export const ProjectDetail = ({ projectId }: ProjectDetailProps) => {
           ))}
         </div>
       </div>
+      {isEditOpen && (
+        <ProjectModal
+          project={project}
+          onClose={() => setIsEditOpen(false)}
+          onUpdated={setProject}
+        />
+      )}
     </div>
   );
 };

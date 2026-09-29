@@ -59,11 +59,12 @@ export function ProjectSection() {
       <div className={styles.projectsContent}>
         <ProjectList projects={projects} isLoading={isLoading} error={error} />
       </div>
-      <ProjectModal
-        isOpen={isCreateOpen}
-        onClose={() => setIsCreateOpen(false)}
-        onCreated={handleCreated}
-      />
+      {isCreateOpen && (
+        <ProjectModal
+          onClose={() => setIsCreateOpen(false)}
+          onCreated={handleCreated}
+        />
+      )}
     </div>
   );
 }

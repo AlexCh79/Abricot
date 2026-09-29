@@ -5,7 +5,13 @@ import Image from "next/image";
 import { Button } from "../buttons/Button/Button";
 import { Modal } from "./Modal";
 import { useEffect, useState } from "react";
-import { createProject } from "@/services/projectService";
+import {
+  addContributor,
+  createProject,
+  getProject,
+  removeContributor,
+  updateProject,
+} from "@/services/projectService";
 import { ProjectWithTasks } from "@/types/ProjectsWithTasks";
 import { User } from "@/types/User";
 import { searchUsers } from "@/services/userService";
@@ -13,25 +19,29 @@ import { getInitials } from "@/utils/name";
 
 type ProjectModalProps = {
   project?: ProjectWithTasks;
-  isOpen: boolean;
   onClose: () => void;
-  onCreated: (project: ProjectWithTasks) => void;
+  onCreated?: (project: ProjectWithTasks) => void;
+  onUpdated?: (project: ProjectWithTasks) => void;
 };
 
 export function ProjectModal({
-  isOpen,
+  project,
   onClose,
   onCreated,
+  onUpdated,
 }: ProjectModalProps) {
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
+  const [name, setName] = useState(project?.name ?? "");
+  const [description, setDescription] = useState(project?.description ?? "");
   const [error, setError] = useState("");
   const [isSaving, setIsSaving] = useState(false);
   // States pour la recherche d'email utilisateurs
   const [query, setQuery] = useState("");
   const [suggestions, setSuggestions] = useState<User[]>([]);
   // Gestion des contributeurs multiples
-  const [contributors, setContributors] = useState<string[]>([]);
+  const [contributors, setContributors] = useState<string[]>(
+    project?.members.map((member) => member.user.email) ?? [],
+  );
+  const isEdit = Boolean(project);
 
   // Sélection et déselection des contributeurs
   const toggleContributor = (email: string) => {
@@ -41,6 +51,13 @@ export function ProjectModal({
         : [...current, email],
     );
   };
+
+  // Définition du titre de la modale
+  const submitLabel = isSaving
+    ? "Enregistrement..."
+    : isEdit
+      ? "Enregistrer les modifications"
+      : "Ajouter un projet";
 
   // Recherche de mail utilisateur dès 3 caractères tapés
   useEffect(() => {
@@ -62,6 +79,14 @@ export function ProjectModal({
   // Pas de suggestions si saisie trop courte
   const visibleSuggestions = query.trim().length >= 2 ? suggestions : [];
 
+  // Liste avant / après des contributeurs pour gérer la modif à l'envoi du formulaire
+  const initialEmails =
+    project?.members.map((member) => member.user.email) ?? [];
+  // Récupération de l'ID lié à l'email du contributeur
+  const userIdByEmail = new Map(
+    project?.members.map((member) => [member.user.email, member.user.id]) ?? [],
+  );
+
   // Création du projet
   const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -69,25 +94,47 @@ export function ProjectModal({
     setIsSaving(true);
 
     try {
-      // Création du projet
-      const created = await createProject({ name, description, contributors });
-      onCreated({ ...created, tasks: [] });
-      // Nettoyage des champs
-      setName("");
-      setDescription("");
-      setQuery("");
+      // Création ou modification du projet
+      if (project) {
+        await updateProject(project.id, { name, description });
+        const added = contributors.filter(
+          (email) => !initialEmails.includes(email),
+        );
+        const removed = initialEmails.filter(
+          (email) => !contributors.includes(email),
+        );
+
+        await Promise.all([
+          ...added.map((email) => addContributor(project.id, { email })),
+          ...removed.map((email) => {
+            const userId = userIdByEmail.get(email);
+            return userId
+              ? removeContributor(project.id, userId)
+              : Promise.resolve();
+          }),
+        ]);
+        const refreshed = await getProject(project.id);
+        onUpdated?.({ ...refreshed, tasks: project.tasks });
+      } else {
+        const created = await createProject({
+          name,
+          description,
+          contributors,
+        });
+        onCreated?.({ ...created, tasks: [] });
+      }
       onClose();
-      setContributors([]);
-      setError("");
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Création impossible.");
+      setError(
+        err instanceof Error ? err.message : "Enregistrement impossible.",
+      );
     } finally {
       setIsSaving(false);
     }
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} labelledBy="project-modal-title">
+    <Modal onClose={onClose} labelledBy="project-modal-title">
       <form className={styles.projectModalPage} onSubmit={handleSubmit}>
         <button
           type="button"
@@ -106,7 +153,7 @@ export function ProjectModal({
         <div className={styles.projectModalContent}>
           <div className={styles.projectModalFormContent}>
             <h2 id="project-modal-title" className={styles.projectModalTitle}>
-              Créer un projet
+              {isEdit ? "Modifier le projet" : "Créer un projet"}
             </h2>
             <div className={styles.projectModalGroupFields}>
               <div className={styles.projectModalGroup}>
@@ -147,6 +194,7 @@ export function ProjectModal({
                 >
                   Contributeurs
                 </label>
+
                 <input
                   id="contributors"
                   name="contributors"
@@ -157,7 +205,11 @@ export function ProjectModal({
                       e.preventDefault();
                     }
                   }}
-                  placeholder="Choisir un ou plusieurs collaborateurs"
+                  placeholder={
+                    isEdit
+                      ? "Ajouter un collaborateur"
+                      : "Choisir un ou plusieurs collaborateurs"
+                  }
                   className={styles.projectModalSelectInput}
                 />
                 {visibleSuggestions.length > 0 && (
@@ -190,6 +242,30 @@ export function ProjectModal({
                     })}
                   </ul>
                 )}
+
+                {contributors.length > 0 ? (
+                  <ul className={styles.contributorsList}>
+                    {contributors.map((email) => (
+                      <li key={email}>
+                        <button
+                          type="button"
+                          className={styles.contributorsChip}
+                          onClick={() => toggleContributor(email)}
+                          aria-label={`Retirer ${email}`}
+                        >
+                          <span>{email}</span>
+                          <span aria-hidden="true">×</span>
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  isEdit && (
+                    <p className={styles.emptyText}>
+                      Aucun contributeur sur ce projet
+                    </p>
+                  )
+                )}
               </div>
             </div>
           </div>
@@ -200,11 +276,7 @@ export function ProjectModal({
               {error}
             </p>
           )}
-          <Button
-            label={isSaving ? "Création..." : "Ajouter un projet"}
-            type="submit"
-            disabled={isSaving}
-          />
+          <Button label={submitLabel} type="submit" disabled={isSaving} />
           {/* <Button label="Supprimer un projet" type="button" /> */}
         </div>
       </form>
