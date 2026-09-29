@@ -12,6 +12,7 @@ import { searchUsers } from "@/services/userService";
 import { getInitials } from "@/utils/name";
 
 type ProjectModalProps = {
+  project?: ProjectWithTasks;
   isOpen: boolean;
   onClose: () => void;
   onCreated: (project: ProjectWithTasks) => void;
