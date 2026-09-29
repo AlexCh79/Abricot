@@ -28,20 +28,21 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 761px;
 }
 
 .detailHeaderTitleWrapper {
   display: flex;
   flex-direction: column;
   gap: 14px;
+  margin-left: 10px;
 }
 
 .detailHeaderTitleAndLink {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 231px;
+  width: fit-content;
+  gap: 15px;
 }
 
 .detailHeaderTitle {
@@ -53,7 +54,10 @@
 .detailHeaderLink {
   font-size: $body-s;
   text-decoration: underline;
+  border: none;
+  background-color: transparent;
   color: $color-brand-orange-text;
+  cursor: pointer;
 }
 
 .detailDescription {
@@ -71,10 +75,86 @@
 
 .detailHeaderContributors {
   background-color: $color-grey-100;
-  width: 1215px;
+  width: 85%;
   border-radius: 10px;
   padding: 20px 50px;
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
   gap: 24px;
+  margin-bottom: 40px;
+}
+
+.detailHeaderContributorsLeftSection {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.detailHeaderContributorsTitle {
+  @include font-h5;
+  color: $color-grey-800;
+}
+
+.detailHeaderContributorsSubtitle {
+  font-size: $body-m;
+  color: $color-grey-600;
+}
+
+.detailHeaderContributorsRightSection {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  align-items: center;
+}
+
+.detailHeaderContributorsAdminWrapper,
+.detailHeaderContributorsMemberWrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}
+
+.detailsHeadersAdminInitials {
+  background-color: $color-brand-light-orange;
+  border-radius: 50%;
+  border: none;
+  padding: 5px;
+  color: $color-grey-950;
+  font-size: $body-2xs;
+}
+
+.detailsHeadersAdminName {
+  background-color: $color-brand-light-orange;
+  color: $color-brand-orange-text;
+  border-radius: 50px;
+  border: none;
+  font-size: $body-s;
+  padding: 4px 16px;
+}
+
+.detailsHeadersMemberInitials,
+.detailsHeadersMemberName {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid $color-white;
+  background-color: $color-grey-200;
+}
+
+.detailsHeadersMemberInitials {
+  color: $color-grey-950;
+  width: 27px;
+  height: 27px;
+  font-size: $body-2xs;
+  padding: 9px 5px;
+  border-radius: 50%;
+}
+
+.detailsHeadersMemberName {
+  border-radius: 50px;
+  padding: 4px 16px;
+  font-size: $body-s;
+  color: $color-grey-600;
 }

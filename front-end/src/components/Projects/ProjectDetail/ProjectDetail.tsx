@@ -7,6 +7,8 @@ import { BackButton } from "@/components/buttons/IconButton/IconButton";
 import styles from "./ProjectDetail.module.scss";
 import { Button } from "@/components/buttons/Button/Button";
 import { SquareIaButton } from "@/components/buttons/IaButton/IaButton";
+import { getInitials } from "@/utils/name";
+import { countTeam } from "@/utils/team";
 
 type ProjectDetailProps = {
   projectId: string;
@@ -53,7 +55,7 @@ export const ProjectDetail = ({ projectId }: ProjectDetailProps) => {
               {project.userRole === "ADMIN" && (
                 <button
                   type="button"
-                  className={styles.detailHeaderbutton}
+                  className={styles.detailHeaderLink}
                   //   onClick={openEdit}
                 >
                   Modifier
@@ -64,11 +66,41 @@ export const ProjectDetail = ({ projectId }: ProjectDetailProps) => {
           </div>
         </div>
         <div className={styles.detailHeaderButtonsZone}>
-          <Button label="Créer une tâche" />
+          <Button label="Créer une tâche" type="button" />
           <SquareIaButton />
         </div>
       </div>
-      <div className={styles.detailHeaderContributors}></div>
+      <div className={styles.detailHeaderContributors}>
+        <div className={styles.detailHeaderContributorsLeftSection}>
+          <h2 className={styles.detailHeaderContributorsTitle}>
+            Contributeurs
+          </h2>
+          <span className={styles.detailHeaderContributorsSubtitle}>
+            {countTeam(project)} personne{countTeam(project) > 1 ? "s" : ""}
+          </span>
+        </div>
+        <div className={styles.detailHeaderContributorsRightSection}>
+          <div className={styles.detailHeaderContributorsAdminWrapper}>
+            <span className={styles.detailsHeadersAdminInitials}>
+              {getInitials(project.owner?.name ?? null)}
+            </span>
+            <span className={styles.detailsHeadersAdminName}>Propriétaire</span>
+          </div>
+          {project.members.map((member) => (
+            <div
+              key={member.id}
+              className={styles.detailHeaderContributorsMemberWrapper}
+            >
+              <span className={styles.detailsHeadersMemberInitials}>
+                {getInitials(member.user?.name ?? null)}
+              </span>
+              <span className={styles.detailsHeadersMemberName}>
+                {member.user?.name ?? null}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };
