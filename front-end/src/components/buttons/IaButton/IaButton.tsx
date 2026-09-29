@@ -12,3 +12,16 @@ export const IaButton = () => {
     </button>
   );
 };
+
+export const SquareIaButton = () => {
+  return (
+    <button
+      type="button"
+      className={styles.iaSquareButton}
+      aria-label="Générer des tâches avec l'IA"
+    >
+      <IaIcon className={styles.iaSquareIcon} />
+      IA
+    </button>
+  );
+};

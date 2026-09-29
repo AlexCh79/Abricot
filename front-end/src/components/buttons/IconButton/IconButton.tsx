@@ -3,19 +3,19 @@ import styles from "./IconButton.module.scss";
 import ArrowLeftIcon from "@/components/icons/ArrowLeftIcon";
 import MoreIcon from "@/components/icons/MoreIcon";
 
-export const backButton = () => {
+export const BackButton = () => {
   return (
     <Link
       href="/projects"
       className={styles.iconButton}
       aria-label="Retour aux projets"
     >
-      <ArrowLeftIcon classname={styles.backIcon} />
+      <ArrowLeftIcon className={styles.backIcon} />
     </Link>
   );
 };
 
-export const moreButton = () => {
+export const MoreButton = () => {
   return (
     <button
       type="button"

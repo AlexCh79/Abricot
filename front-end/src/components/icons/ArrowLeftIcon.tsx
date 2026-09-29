@@ -1,8 +1,8 @@
 type IconProps = {
-  classname?: string;
+  className?: string;
 };
 
-export default function ArrowLeftIcon({ classname }: IconProps) {
+export default function ArrowLeftIcon({ className }: IconProps) {
   return (
     <svg
       viewBox="0 0 20 16"

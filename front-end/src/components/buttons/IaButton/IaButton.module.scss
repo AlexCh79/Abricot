@@ -1,15 +1,48 @@
 @use "@/styles/variables" as *;
 
+.iaButton,
+.iaSquareButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  flex-shrink: 0;
+  color: $color-white;
+  background-color: $color-brand-dark-orange;
+  transition: all 300ms ease-out;
+
+  &:hover {
+    color: $color-brand-orange-text;
+    background-color: $color-brand-light-orange;
+    cursor: pointer;
+  }
+}
+
+.iaIcon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
 .iaButton {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  padding: 20px;
-  transition: all 300ms ease-out;
-  color: $color-white;
-  background-color: $color-brand-dark-orange;
-  &:hover {
-    color: $color-brand-orange-text;
-    background-color: $color-brand-light-orange;
-  }
+}
+
+.iaSquareButton {
+  width: 94px;
+  height: 50px;
+  border-radius: 10px;
+  padding: 13px;
+  gap: 10px;
+  font-size: $body-m;
+}
+
+.iaSquareIcon {
+  width: 21px;
+  height: 21px;
+  border-radius: 1px;
+  flex-shrink: 0;
 }

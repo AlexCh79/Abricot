@@ -1,0 +1,80 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+
+.errorText {
+  color: $error-red;
+  font-size: $body-s;
+  text-align: center;
+}
+
+.detailPage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.detailHeaderWrapper {
+  width: 100%;
+  margin: 30px 44px;
+  padding: 0 44px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.detailHeaderTitleBanner {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 761px;
+}
+
+.detailHeaderTitleWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.detailHeaderTitleAndLink {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 231px;
+}
+
+.detailHeaderTitle {
+  @include font-h4;
+  color: $color-grey-800;
+  text-wrap: nowrap;
+}
+
+.detailHeaderLink {
+  font-size: $body-s;
+  text-decoration: underline;
+  color: $color-brand-orange-text;
+}
+
+.detailDescription {
+  font-size: $body-l;
+  color: $color-grey-600;
+}
+
+.detailHeaderButtonsZone {
+  width: 247px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.detailHeaderContributors {
+  background-color: $color-grey-100;
+  width: 1215px;
+  border-radius: 10px;
+  padding: 20px 50px;
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+}

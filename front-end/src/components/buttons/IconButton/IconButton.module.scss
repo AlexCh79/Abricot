@@ -1,8 +1,9 @@
 @use "@/styles/variables" as *;
 
 .backIcon {
-  width: 16px;
-  height: 13px;
+  width: 17px;
+  height: 10px;
+  flex-shrink: 0;
 }
 .iconButton {
   display: inline-flex;
@@ -10,7 +11,7 @@
   justify-items: center;
   width: 57px;
   height: 57px;
-  padding: 24px;
+  padding: 20px;
   border: 1px solid $color-grey-200;
   color: #000;
   border-radius: 10px;
