@@ -1,0 +1,92 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+
+.projectModalPage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 550px;
+  border-radius: 10px;
+  padding: 40px 60px;
+  gap: 56px;
+  background-color: $color-white;
+}
+
+.closedZone {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  width: 100%;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.projectModalContent {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  width: 100%;
+}
+
+.btnZone {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  gap: 30px;
+  @media screen and (max-width: 749px) {
+    flex-direction: column;
+  }
+}
+
+.projectModalTitle {
+  @include font-h4;
+}
+
+.projectModalGroupFields {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-top: 40px;
+  width: 100%;
+}
+
+.projectModalGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.projectModalLabel {
+  font-size: $body-s;
+  color: #000;
+}
+
+.projectModalTextInput {
+  width: 100%;
+  border-radius: 4px;
+  border: 1px solid $color-grey-200;
+  background-color: $color-white;
+  padding: 19px 17px;
+  font-size: $body-xs;
+  color: $color-grey-600;
+}
+
+.projectModalSelectInput {
+  width: 100%;
+  border-radius: 4px;
+  border: 1px solid $color-grey-200;
+  cursor: pointer;
+  appearance: none;
+  background-color: $color-white;
+  height: 53px;
+  background-image: url("/icon_bottom_arrow.svg");
+  background-repeat: no-repeat;
+  background-position: right 17px center;
+  background-size: 16px 18px;
+  padding: 19px 17px;
+  color: $color-grey-600;
+  font-size: $body-xs;
+}
