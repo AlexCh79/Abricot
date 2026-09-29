@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { getProject } from "@/services/projectService";
 import { getTasks } from "@/services/taskService";
 import type { ProjectWithTasks } from "@/types/ProjectsWithTasks";
@@ -20,6 +21,7 @@ export const ProjectDetail = ({ projectId }: ProjectDetailProps) => {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [isEditOpen, setIsEditOpen] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const loadProject = async () => {
@@ -108,6 +110,7 @@ export const ProjectDetail = ({ projectId }: ProjectDetailProps) => {
           project={project}
           onClose={() => setIsEditOpen(false)}
           onUpdated={setProject}
+          onDeleted={() => router.replace("/projects")}
         />
       )}
     </div>

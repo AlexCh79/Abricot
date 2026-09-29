@@ -6,6 +6,7 @@ type ButtonProps = {
   form?: string;
   disabled?: boolean;
   onClick?: () => void;
+  autoFocus?: boolean;
 };
 
 export const Button = ({
@@ -14,6 +15,7 @@ export const Button = ({
   form,
   disabled,
   onClick,
+  autoFocus,
 }: ButtonProps) => {
   return (
     <button
@@ -22,6 +24,7 @@ export const Button = ({
       form={form}
       disabled={disabled}
       onClick={onClick}
+      autoFocus={autoFocus}
     >
       {label}
     </button>

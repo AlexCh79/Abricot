@@ -5,9 +5,11 @@ import Image from "next/image";
 import { Button } from "../buttons/Button/Button";
 import { Modal } from "./Modal";
 import { useEffect, useState } from "react";
+import { useUser } from "@/context/UserContext";
 import {
   addContributor,
   createProject,
+  deleteProject,
   getProject,
   removeContributor,
   updateProject,
@@ -22,6 +24,7 @@ type ProjectModalProps = {
   onClose: () => void;
   onCreated?: (project: ProjectWithTasks) => void;
   onUpdated?: (project: ProjectWithTasks) => void;
+  onDeleted?: () => void;
 };
 
 export function ProjectModal({
@@ -29,6 +32,7 @@ export function ProjectModal({
   onClose,
   onCreated,
   onUpdated,
+  onDeleted,
 }: ProjectModalProps) {
   const [name, setName] = useState(project?.name ?? "");
   const [description, setDescription] = useState(project?.description ?? "");
@@ -42,6 +46,29 @@ export function ProjectModal({
     project?.members.map((member) => member.user.email) ?? [],
   );
   const isEdit = Boolean(project);
+  // Gestion de la demande de suppression d'un projet
+  const [isConfirmDelete, setIsConfirmDelete] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const { user } = useUser();
+  const isOwner = Boolean(user && project && user.id === project.ownerId);
+
+  // Suppression d'un projet
+  const handleDelete = async () => {
+    if (!project) return;
+    setError("");
+    setIsDeleting(true);
+
+    try {
+      await deleteProject(project.id);
+      onDeleted?.();
+      onClose();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Suppression impossible");
+      setIsConfirmDelete(false);
+    } finally {
+      setIsDeleting(false);
+    }
+  };
 
   // Sélection et déselection des contributeurs
   const toggleContributor = (email: string) => {
@@ -276,8 +303,37 @@ export function ProjectModal({
               {error}
             </p>
           )}
-          <Button label={submitLabel} type="submit" disabled={isSaving} />
-          {/* <Button label="Supprimer un projet" type="button" /> */}
+          {isConfirmDelete ? (
+            <div className={styles.confirmZone}>
+              <p role="alert" className={styles.confirmText}>
+                Supprimer définitivement &quot;{project?.name}&quot; et toutes
+                ses tâches ?
+              </p>
+              <Button
+                type="button"
+                label="Annuler"
+                autoFocus
+                onClick={() => setIsConfirmDelete(false)}
+              />
+              <Button
+                type="button"
+                label={isDeleting ? "Suppression..." : "Oui, supprimer"}
+                disabled={isDeleting}
+                onClick={handleDelete}
+              />
+            </div>
+          ) : (
+            <>
+              <Button label={submitLabel} type="submit" disabled={isSaving} />
+              {isEdit && isOwner && (
+                <Button
+                  label="Supprimer un projet"
+                  type="button"
+                  onClick={() => setIsConfirmDelete(true)}
+                />
+              )}
+            </>
+          )}
         </div>
       </form>
     </Modal>
