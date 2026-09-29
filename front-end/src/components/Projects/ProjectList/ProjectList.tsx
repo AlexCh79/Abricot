@@ -1,42 +1,25 @@
-"use client";
-
-import { useState, useEffect } from "react";
-import { getProjects } from "@/services/projectService";
 import { ProjectCard } from "@/components/Cards/ProjectCard/ProjectCard";
 import styles from "./ProjectList.module.scss";
-import { getTasks } from "@/services/taskService";
 import type { ProjectWithTasks } from "@/types/ProjectsWithTasks";
 
-export const ProjectList = () => {
-  const [projects, setProjects] = useState<ProjectWithTasks[]>([]);
-  const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
+type ProjectListProps = {
+  projects: ProjectWithTasks[];
+  isLoading: boolean;
+  error: string;
+};
 
-  useEffect(() => {
-    const loadProjects = async () => {
-      try {
-        const loadedProjects = await getProjects();
-        // Récupération des tâches dans les projets
-        const tasksByProject = await Promise.all(
-          loadedProjects.map((project) => getTasks(project.id)),
-        );
-        setProjects(
-          loadedProjects.map((project, index) => ({
-            ...project,
-            tasks: tasksByProject[index],
-          })),
-        );
-      } catch (err) {
-        setError(err instanceof Error ? err.message : "Projets indisponibles.");
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    loadProjects();
-  }, []);
-
+export const ProjectList = ({
+  projects,
+  isLoading,
+  error,
+}: ProjectListProps) => {
   if (isLoading) return <p>Chargement de vos projets...</p>;
-  if (error) return <p role="alert">{error}</p>;
+  if (error)
+    return (
+      <p role="alert" className={styles.errorText}>
+        {error}
+      </p>
+    );
   if (projects.length === 0)
     return <p>Vous n&apos;avez pas encore de projet.</p>;
 

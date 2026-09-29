@@ -90,3 +90,9 @@
   color: $color-grey-600;
   font-size: $body-xs;
 }
+
+.errorText {
+  color: $error-red;
+  font-size: $body-s;
+  text-align: center;
+}
