@@ -7,9 +7,11 @@ import { Button } from "@/components/buttons/Button/Button";
 import { createTask, updateTask } from "@/services/taskService";
 import { STATUS_LABEL, STATUS_VARIANTS } from "@/utils/tasks";
 import { Tag } from "@/components/tags/Tag";
+import type { User } from "@/types/User";
 
 type TaskModalProps = {
   projectId: string;
+  assignableUsers: Pick<User, "id" | "name" | "email">[];
   task?: Task;
   onClose: () => void;
   onCreated?: (task: Task) => void;
@@ -19,6 +21,7 @@ type TaskModalProps = {
 
 export function TaskModal({
   projectId,
+  assignableUsers,
   task,
   onClose,
   onCreated,
@@ -34,6 +37,10 @@ export function TaskModal({
   );
   const [error, setError] = useState("");
   const [isSaving, setIsSaving] = useState(false);
+
+  const available = assignableUsers.filter(
+    (user) => !assigneeIds.includes(user.id),
+  );
 
   const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -128,14 +135,48 @@ export function TaskModal({
               <select
                 className={styles.formInputSelect}
                 id="assignees"
-                name="assignees"
-                value={assigneeIds}
-                onChange={(e) => setAssigneeIds([e.target.value])}
+                value=""
+                onChange={(e) => {
+                  if (e.target.value) {
+                    setAssigneeIds((current) => [...current, e.target.value]);
+                  }
+                }}
               >
                 <option value="" disabled>
                   Choisir un ou plusieurs collaborateurs
                 </option>
+                {available.map((user) => (
+                  <option key={user.id} value={user.id}>
+                    {user.name ?? user.email}
+                  </option>
+                ))}
               </select>
+              {assigneeIds.length > 0 && (
+                <ul className={styles.chipsList}>
+                  {assigneeIds.map((id) => {
+                    const user = assignableUsers.find(
+                      (candidate) => candidate.id === id,
+                    );
+                    return (
+                      <li key={id} className={styles.chipsUser}>
+                        <button
+                          type="button"
+                          className={styles.chipsBtn}
+                          onClick={() =>
+                            setAssigneeIds((current) =>
+                              current.filter((item) => item !== id),
+                            )
+                          }
+                          aria-label={`Retirer ${user?.name ?? "cet utilisateur"}`}
+                        >
+                          {user?.name ?? user?.email}
+                          <span aria-hidden="true">x</span>
+                        </button>
+                      </li>
+                    );
+                  })}
+                </ul>
+              )}
             </div>
             <fieldset className={styles.formGroupFieldRadio}>
               <legend className={styles.formLabel}>Statut :</legend>

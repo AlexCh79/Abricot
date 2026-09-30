@@ -33,6 +33,11 @@ export const ProjectDetail = ({ projectId }: ProjectDetailProps) => {
   const [isTaskCreateOpen, setIsTaskCreateOpen] = useState(false);
   const router = useRouter();
 
+  const assignableUsers = [
+    ...(project?.owner ? [project.owner] : []),
+    ...(project?.members.map((member) => member.user) ?? []),
+  ];
+
   useEffect(() => {
     const loadProject = async () => {
       try {
@@ -158,6 +163,7 @@ export const ProjectDetail = ({ projectId }: ProjectDetailProps) => {
       {isTaskCreateOpen && (
         <TaskModal
           projectId={project.id}
+          assignableUsers={assignableUsers}
           onClose={() => setIsTaskCreateOpen(false)}
         />
       )}

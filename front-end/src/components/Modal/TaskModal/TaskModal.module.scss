@@ -109,3 +109,43 @@
 .visuallyHidden {
   visibility: hidden;
 }
+
+.chipsUser {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  gap: 8px;
+  padding: 4px 12px;
+  border: none;
+  border-radius: 50px;
+  background-color: $color-brand-light-orange;
+  color: $color-brand-orange-text;
+  font-size: $body-xs;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background-color 150ms ease-out;
+
+  &:hover {
+    background-color: $error-red-light;
+    color: $error-red;
+  }
+}
+
+.chipsList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+  padding: 0;
+  list-style: none;
+}
+
+.chipsBtn {
+  border: none;
+  background-color: transparent;
+  gap: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
