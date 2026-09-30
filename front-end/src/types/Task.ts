@@ -17,6 +17,7 @@ export type Task = {
   creatorId: string;
   assignees: TaskAssignee[];
   comments: Comment[];
+  _count: [comments: number];
   createdAt: string;
   updatedAt: string;
 };

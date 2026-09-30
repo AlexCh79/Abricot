@@ -1,0 +1,114 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+
+.taskCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  border-radius: 10px;
+  border: 1px solid $color-grey-200;
+  background-color: $color-white;
+  gap: 24px;
+  padding: 25px 40px;
+  width: 100%;
+}
+
+.taskCardTitleContainer {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.taskCardTitleWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.taskCardTitleAndStatus {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+
+.taskCardTitle {
+  @include font-h5;
+  color: #000;
+}
+
+.taskCardSubtitle {
+  font-size: $body-s;
+  color: $color-grey-600;
+}
+
+.taskCalendarContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  max-width: fit-content;
+  gap: 4px;
+}
+
+.taskCalendarTitle {
+  font-size: $body-xs;
+  color: $color-grey-600;
+}
+
+.iconCalendar {
+  width: 15px;
+  height: 17px;
+}
+
+.taskCalendarDate {
+  font-size: body-xs;
+  color: $color-grey-800;
+}
+
+.taskCalendarDate {
+  font-size: $body-xs;
+  color: $color-grey-800;
+}
+
+.taskAssigneesContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  align-items: center;
+}
+
+.taskAssigneesTitle {
+  font-size: $body-xs;
+  color: $color-grey-600;
+}
+
+.chipsContainer {
+  display: flex;
+  gap: 4px;
+}
+
+.taskBorder {
+  border: 1px solid $color-grey-200;
+  width: 100%;
+}
+
+.taskCommentsContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.taskCommentsTitle {
+  font-size: $body-s;
+  color: $color-grey-800;
+}
+
+.toggleButton {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}

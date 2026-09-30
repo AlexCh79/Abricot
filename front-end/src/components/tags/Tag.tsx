@@ -1,6 +1,6 @@
 import styles from "./Tag.module.scss";
 
-type TagVariant =
+export type TagVariant =
   "success" | "error" | "warning" | "info" | "normal" | "disabled";
 
 type TagProps = {

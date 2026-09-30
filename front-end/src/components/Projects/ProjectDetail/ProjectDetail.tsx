@@ -11,8 +11,9 @@ import { SquareIaButton } from "@/components/buttons/IaButton/IaButton";
 import { getInitials } from "@/utils/name";
 import { countTeam } from "@/utils/team";
 import { ProjectModal } from "@/components/Modal/ProjectModal";
-import { Chips } from "@/components/Chips/Chips";
+import { Chips, UserInitials, UserChip } from "@/components/Chips/Chips";
 import { Search } from "@/components/Inputs/Search";
+import { TaskCard } from "@/components/Cards/TaskCard/TaskCard";
 
 type ProjectDetailProps = {
   projectId: string;
@@ -97,12 +98,8 @@ export const ProjectDetail = ({ projectId }: ProjectDetailProps) => {
               key={member.id}
               className={styles.detailHeaderContributorsMemberWrapper}
             >
-              <span className={styles.detailsHeadersMemberInitials}>
-                {getInitials(member.user?.name ?? null)}
-              </span>
-              <span className={styles.detailsHeadersMemberName}>
-                {member.user?.name ?? null}
-              </span>
+              <UserInitials name={member.user?.name ?? null} />
+              <UserChip name={member.user?.name ?? null} />
             </div>
           ))}
         </div>
@@ -140,6 +137,11 @@ export const ProjectDetail = ({ projectId }: ProjectDetailProps) => {
             </select>
             <Search placeholder="Rechercher une tâche" />
           </div>
+        </div>
+        <div className={styles.detailContentList}>
+          {project.tasks.map((task) => (
+            <TaskCard key={task.id} task={task} />
+          ))}
         </div>
       </div>
     </div>

@@ -12,6 +12,7 @@
   width: 57px;
   height: 57px;
   padding: 20px;
+  flex-shrink: 0;
   border: 1px solid $color-grey-200;
   color: #000;
   border-radius: 10px;
@@ -20,5 +21,6 @@
   &:hover {
     border: 1px solid $color-brand-dark-orange;
     color: $color-brand-orange-text;
+    cursor: pointer;
   }
 }

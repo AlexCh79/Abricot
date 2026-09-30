@@ -1,5 +1,6 @@
 import styles from "./Chips.module.scss";
 import Image from "next/image";
+import { getInitials } from "@/utils/name";
 
 type ChipsProps = {
   label: string;
@@ -27,4 +28,16 @@ export const Chips = ({ label, source, isActive, onClick }: ChipsProps) => {
       {label}
     </button>
   );
+};
+
+type UserChipProps = {
+  name: string | null;
+};
+
+export const UserInitials = ({ name }: UserChipProps) => {
+  return <span className={styles.memberInitials}>{getInitials(name)}</span>;
+};
+
+export const UserChip = ({ name }: UserChipProps) => {
+  return <span className={styles.memberName}>{name}</span>;
 };
