@@ -9,7 +9,8 @@ import styles from "./ProjectDetail.module.scss";
 import { Button } from "@/components/buttons/Button/Button";
 import { SquareIaButton } from "@/components/buttons/IaButton/IaButton";
 import { countTeam } from "@/utils/team";
-import { ProjectModal } from "@/components/Modal/ProjectModal";
+import { ProjectModal } from "@/components/Modal/ProjectModal/ProjectModal";
+import { TaskModal } from "@/components/Modal/TaskModal/TaskModal";
 import {
   Chips,
   UserInitials,
@@ -29,6 +30,7 @@ export const ProjectDetail = ({ projectId }: ProjectDetailProps) => {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [isEditOpen, setIsEditOpen] = useState(false);
+  const [isTaskCreateOpen, setIsTaskCreateOpen] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -78,7 +80,11 @@ export const ProjectDetail = ({ projectId }: ProjectDetailProps) => {
           </div>
         </div>
         <div className={styles.detailHeaderButtonsZone}>
-          <Button label="Créer une tâche" type="button" />
+          <Button
+            label="Créer une tâche"
+            type="button"
+            onClick={() => setIsTaskCreateOpen(true)}
+          />
           <SquareIaButton />
         </div>
       </div>
@@ -149,6 +155,12 @@ export const ProjectDetail = ({ projectId }: ProjectDetailProps) => {
           ))}
         </div>
       </div>
+      {isTaskCreateOpen && (
+        <TaskModal
+          projectId={project.id}
+          onClose={() => setIsTaskCreateOpen(false)}
+        />
+      )}
     </div>
   );
 };

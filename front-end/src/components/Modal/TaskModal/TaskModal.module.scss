@@ -1,0 +1,111 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+
+.taskModalPage {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 33px 73px;
+  gap: 56px;
+  background-color: $color-white;
+}
+
+.closedZone {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  width: 100%;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.formContentWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  width: 100%;
+}
+
+.formContentTitle {
+  @include font-h4;
+  color: $color-grey-800;
+}
+
+.formContent {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+}
+
+.formGroupField {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  width: 100%;
+}
+.formGroupFieldRadio {
+  border: none;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.formLabel {
+  font-size: $body-s;
+  color: #000;
+}
+
+.formInput,
+.formInputDate,
+.formInputSelect {
+  border: 1px solid $color-grey-200;
+  border-radius: 4px;
+  width: 100%;
+  background-color: $color-white;
+  padding: 19px 17px;
+  color: $color-grey-600;
+  font-size: $body-xs;
+}
+
+.formInputDate,
+.formInputSelect {
+  appearance: none;
+  -webkit-appearance: none;
+  background-repeat: no-repeat;
+  background-position: right 17px center;
+}
+.formInputDate {
+  background-image: url("/icon_kanban_black.svg");
+  position: relative;
+}
+
+.formInputDate::-webkit-calendar-picker-indicator {
+  position: absolute;
+  inset: 0;
+  width: auto;
+  height: auto;
+  opacity: 0;
+  cursor: pointer;
+}
+.formInputSelect {
+  background-image: url("/icon_bottom_arrow.svg");
+}
+
+.statusChoice {
+  cursor: pointer;
+  opacity: 0.5;
+  margin-top: 16px;
+  transition: opacity 300ms ease-out;
+  &:has(input:checked),
+  &:has(input:focus-visible),
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.visuallyHidden {
+  visibility: hidden;
+}

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import styles from "./ProjectSection.module.scss";
-import { ProjectModal } from "@/components/Modal/ProjectModal";
+import { ProjectModal } from "@/components/Modal/ProjectModal/ProjectModal";
 import { Button } from "@/components/buttons/Button/Button";
 import { ProjectList } from "../ProjectList/ProjectList";
 import { getProjects } from "@/services/projectService";

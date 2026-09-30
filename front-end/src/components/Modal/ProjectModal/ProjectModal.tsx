@@ -2,8 +2,8 @@
 
 import styles from "./ProjectModal.module.scss";
 import Image from "next/image";
-import { Button } from "../buttons/Button/Button";
-import { Modal } from "./Modal";
+import { Button } from "../../buttons/Button/Button";
+import { Modal } from "../Modal";
 import { useEffect, useState } from "react";
 import { useUser } from "@/context/UserContext";
 import {

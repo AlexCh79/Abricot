@@ -1,6 +1,4 @@
 import type { Task, TaskPriority, TaskStatus } from "@/types/Task";
-//import type { Project } from "@/types/Project";
-//import type { Comment } from "@/types/Comment";
 import { apiFetch } from "./api";
 
 // Création d'une nouvelle tâche
