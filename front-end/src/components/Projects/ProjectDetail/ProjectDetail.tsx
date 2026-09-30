@@ -20,6 +20,7 @@ import {
 } from "@/components/Chips/Chips";
 import { Search } from "@/components/Inputs/Search";
 import { TaskCard } from "@/components/Cards/TaskCard/TaskCard";
+import type { Task } from "@/types/Task";
 
 type ProjectDetailProps = {
   projectId: string;
@@ -32,11 +33,36 @@ export const ProjectDetail = ({ projectId }: ProjectDetailProps) => {
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isTaskCreateOpen, setIsTaskCreateOpen] = useState(false);
   const router = useRouter();
+  const [editingTask, setEditingTask] = useState<Task | null>(null);
 
   const assignableUsers = [
     ...(project?.owner ? [project.owner] : []),
     ...(project?.members.map((member) => member.user) ?? []),
   ];
+
+  const handleTaskUpdated = (updated: Task) => {
+    setProject((current) =>
+      current
+        ? {
+            ...current,
+            tasks: current.tasks.map((task) =>
+              task.id === updated.id ? updated : task,
+            ),
+          }
+        : current,
+    );
+  };
+
+  const handleTaskDeleted = (taskId: string) => {
+    setProject((current) =>
+      current
+        ? {
+            ...current,
+            tasks: current.tasks.filter((task) => task.id !== taskId),
+          }
+        : current,
+    );
+  };
 
   useEffect(() => {
     const loadProject = async () => {
@@ -156,7 +182,11 @@ export const ProjectDetail = ({ projectId }: ProjectDetailProps) => {
         </div>
         <div className={styles.detailContentList}>
           {project.tasks.map((task) => (
-            <TaskCard key={task.id} task={task} />
+            <TaskCard
+              key={task.id}
+              task={task}
+              onEdit={() => setEditingTask(task)}
+            />
           ))}
         </div>
       </div>
@@ -165,6 +195,16 @@ export const ProjectDetail = ({ projectId }: ProjectDetailProps) => {
           projectId={project.id}
           assignableUsers={assignableUsers}
           onClose={() => setIsTaskCreateOpen(false)}
+        />
+      )}
+      {editingTask && (
+        <TaskModal
+          projectId={project.id}
+          assignableUsers={assignableUsers}
+          task={editingTask}
+          onClose={() => setEditingTask(null)}
+          onUpdated={handleTaskUpdated}
+          onDeleted={() => handleTaskDeleted(editingTask.id)}
         />
       )}
     </div>

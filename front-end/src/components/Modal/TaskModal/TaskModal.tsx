@@ -31,13 +31,12 @@ export function TaskModal({
   const [title, setTitle] = useState(task?.title ?? "");
   const [description, setDescription] = useState(task?.description ?? "");
   const [status, setStatus] = useState<TaskStatus | "">(task?.status ?? "");
-  const [dueDate, setDueDate] = useState(task?.dueDate ?? "");
   const [assigneeIds, setAssigneeIds] = useState<string[]>(
     task?.assignees.map((assignee) => assignee.user.id) ?? [],
   );
   const [error, setError] = useState("");
   const [isSaving, setIsSaving] = useState(false);
-
+  const [dueDate, setDueDate] = useState(task?.dueDate?.slice(0, 10) ?? "");
   const available = assignableUsers.filter(
     (user) => !assigneeIds.includes(user.id),
   );
@@ -48,20 +47,31 @@ export function TaskModal({
     setIsSaving(true);
 
     try {
-      const created = await createTask(projectId, {
-        title,
-        description,
-        assigneeIds,
-        dueDate: dueDate || undefined,
-      });
+      if (task) {
+        const updated = await updateTask(projectId, task.id, {
+          title,
+          description,
+          status: status || undefined,
+          dueDate: dueDate || undefined,
+          assigneeIds,
+        });
+        onUpdated?.(updated);
+      } else {
+        const created = await createTask(projectId, {
+          title,
+          description,
+          assigneeIds,
+          dueDate: dueDate || undefined,
+        });
 
-      // Mise à jour auto de la nouvelle tâche si le statut est différent de "à faire"
-      const finalTask =
-        status && status !== "TODO"
-          ? await updateTask(projectId, created.id, { status })
-          : created;
-      onCreated?.({ ...finalTask, comments: [] });
-      onClose();
+        // Mise à jour auto de la nouvelle tâche si le statut est différent de "à faire"
+        const finalTask =
+          status && status !== "TODO"
+            ? await updateTask(projectId, created.id, { status })
+            : created;
+        onCreated?.({ ...finalTask, comments: [] });
+        onClose();
+      }
     } catch (err) {
       setError(
         err instanceof Error ? err.message : "Création de tâche impossible.",

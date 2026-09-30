@@ -15,12 +15,18 @@ export const BackButton = () => {
   );
 };
 
-export const MoreButton = () => {
+type MoreButtonProps = {
+  label: string;
+  onClick?: () => void;
+};
+
+export const MoreButton = ({ label, onClick }: MoreButtonProps) => {
   return (
     <button
       type="button"
       className={styles.iconButton}
-      aria-label="Options du projet"
+      aria-label={label}
+      onClick={onClick}
     >
       <MoreIcon className={styles.backIcon} />
     </button>

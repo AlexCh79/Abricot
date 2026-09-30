@@ -17,9 +17,10 @@ import { createComment } from "@/services/commentService";
 
 type TaskCardProps = {
   task: Task;
+  onEdit?: () => void;
 };
 
-export const TaskCard = ({ task }: TaskCardProps) => {
+export const TaskCard = ({ task, onEdit }: TaskCardProps) => {
   const [isCommentOpen, setIsCommentOpen] = useState(false);
   const [commentAdded, setCommentAdded] = useState("");
   const [commentError, setCommentError] = useState("");
@@ -59,7 +60,10 @@ export const TaskCard = ({ task }: TaskCardProps) => {
           </div>
           <p className={styles.taskCardSubtitle}>{task.description}</p>
         </div>
-        <MoreButton />
+        <MoreButton
+          label={`Modifier la tâche ${task.title}`}
+          onClick={onEdit}
+        />
       </div>
       <div className={styles.taskCalendarContainer}>
         <span className={styles.taskCalendarTitle}>Échéance : </span>
