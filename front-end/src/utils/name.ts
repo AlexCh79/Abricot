@@ -17,7 +17,7 @@ export function joinName(firstName: string, lastName: string): string {
 }
 
 // Récupération des initiales
-export function getInitials(name: string | null): string {
-  const { firstName, lastName } = splitName(name); // Découpage du nom
+export function getInitials(name?: string | null): string {
+  const { firstName, lastName } = splitName(name ?? null); // Découpage du nom
   return `${firstName[0] ?? ""}${lastName[0] ?? ""}`.toUpperCase();
 }

@@ -111,4 +111,113 @@
   border: none;
   background-color: transparent;
   cursor: pointer;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  &:focus-visible {
+    outline: 2px solid $color-brand-dark-orange;
+    outline-offset: 4px;
+  }
+}
+
+.iconArrow {
+  width: 16px;
+  height: 8px;
+  transition: transform 300ms ease-out;
+}
+
+.toggleButton[aria-expanded="true"] .iconArrow {
+  transform: rotate(-180deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .iconArrow {
+    transition: none;
+  }
+}
+
+.commentsList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  list-style: none;
+}
+
+.commentListEmpty {
+  font-size: $body-s;
+  color: $color-grey-600;
+  list-style: none;
+}
+
+.commentItem {
+  display: flex;
+  flex-direction: row;
+  gap: 14px;
+}
+
+.commentContent {
+  display: flex;
+  padding: 18px 14px;
+  background-color: $color-grey-100;
+  gap: 18px;
+  width: 100%;
+  border-radius: 10px;
+}
+
+.commentContentWrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 18px;
+}
+
+.commentContentTitleBar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.commentAuthor {
+  font-size: $body-s;
+  color: #000;
+}
+
+.commentDate {
+  font-size: $body-2xs;
+  color: $color-grey-600;
+}
+
+.commentText {
+  font-size: $body-2xs;
+  color: #000;
+}
+
+.commentAddArea {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: transparent;
+  width: 100%;
+}
+
+.commentTextArea {
+  width: 100%;
+  font-size: $body-2xs;
+  color: #000;
+  border-radius: 10px;
+  padding: 18px 14px;
+  border: none;
+  background-color: $color-grey-50;
+  &:focus-visible {
+    outline: 1px solid $color-brand-dark-orange;
+  }
+}
+
+.errorText {
+  color: $error-red;
+  font-size: $body-s;
+  text-align: center;
 }

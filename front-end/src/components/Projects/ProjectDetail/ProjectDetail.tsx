@@ -8,10 +8,15 @@ import { BackButton } from "@/components/buttons/IconButton/IconButton";
 import styles from "./ProjectDetail.module.scss";
 import { Button } from "@/components/buttons/Button/Button";
 import { SquareIaButton } from "@/components/buttons/IaButton/IaButton";
-import { getInitials } from "@/utils/name";
 import { countTeam } from "@/utils/team";
 import { ProjectModal } from "@/components/Modal/ProjectModal";
-import { Chips, UserInitials, UserChip } from "@/components/Chips/Chips";
+import {
+  Chips,
+  UserInitials,
+  UserChip,
+  OwnerChip,
+  OwnerInitials,
+} from "@/components/Chips/Chips";
 import { Search } from "@/components/Inputs/Search";
 import { TaskCard } from "@/components/Cards/TaskCard/TaskCard";
 
@@ -89,9 +94,9 @@ export const ProjectDetail = ({ projectId }: ProjectDetailProps) => {
         <div className={styles.detailHeaderContributorsRightSection}>
           <div className={styles.detailHeaderContributorsAdminWrapper}>
             <span className={styles.detailsHeadersAdminInitials}>
-              {getInitials(project.owner?.name ?? null)}
+              <OwnerInitials name={project.owner?.name} />
+              <OwnerChip />
             </span>
-            <span className={styles.detailsHeadersAdminName}>Propriétaire</span>
           </div>
           {project.members.map((member) => (
             <div

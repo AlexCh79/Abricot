@@ -53,3 +53,27 @@
   font-size: $body-s;
   color: $color-grey-600;
 }
+
+.AdminInitials {
+  background-color: $color-brand-light-orange;
+  border-radius: 50%;
+  border: none;
+  padding: 5px;
+  color: $color-grey-950;
+  flex-shrink: 0;
+  vertical-align: middle;
+  display: inline-flex;
+  align-items: center;
+  font-size: $body-2xs;
+  height: 27px;
+  width: 27px;
+}
+
+.AdminChip {
+  background-color: $color-brand-light-orange;
+  color: $color-brand-orange-text;
+  border-radius: 50px;
+  border: none;
+  font-size: $body-s;
+  padding: 4px 16px;
+}

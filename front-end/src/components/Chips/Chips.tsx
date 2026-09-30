@@ -31,7 +31,7 @@ export const Chips = ({ label, source, isActive, onClick }: ChipsProps) => {
 };
 
 type UserChipProps = {
-  name: string | null;
+  name?: string | null;
 };
 
 export const UserInitials = ({ name }: UserChipProps) => {
@@ -40,4 +40,12 @@ export const UserInitials = ({ name }: UserChipProps) => {
 
 export const UserChip = ({ name }: UserChipProps) => {
   return <span className={styles.memberName}>{name}</span>;
+};
+
+export const OwnerInitials = ({ name }: UserChipProps) => {
+  return <span className={styles.AdminInitials}>{getInitials(name)}</span>;
+};
+
+export const OwnerChip = () => {
+  return <span className={styles.AdminChip}>Propriétaire</span>;
 };
