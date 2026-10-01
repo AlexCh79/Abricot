@@ -1,11 +1,16 @@
 import styles from "./TaskModal.module.scss";
-import type { Task, TaskStatus } from "@/types/Task";
+import type { Task, TaskStatus, TaskPriority } from "@/types/Task";
 import { useState } from "react";
 import { Modal } from "../Modal";
 import Image from "next/image";
 import { Button } from "@/components/buttons/Button/Button";
 import { createTask, updateTask, deleteTask } from "@/services/taskService";
-import { STATUS_LABEL, STATUS_VARIANTS } from "@/utils/tasks";
+import {
+  STATUS_LABEL,
+  STATUS_VARIANTS,
+  PRIORITY_LABEL,
+  PRIORITY_VARIANTS,
+} from "@/utils/tasks";
 import { Tag } from "@/components/tags/Tag";
 import type { User } from "@/types/User";
 
@@ -42,6 +47,9 @@ export function TaskModal({
   );
   const [isConfirmDelete, setIsConfirmDelete] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [priority, setPriority] = useState<TaskPriority>(
+    task?.priority ?? "MEDIUM",
+  );
 
   const handleDelete = async () => {
     if (!task) return;
@@ -70,6 +78,7 @@ export function TaskModal({
         const updated = await updateTask(projectId, task.id, {
           title,
           description,
+          priority,
           status: status || undefined,
           dueDate: dueDate || undefined,
           assigneeIds,
@@ -80,6 +89,7 @@ export function TaskModal({
         const created = await createTask(projectId, {
           title,
           description,
+          priority,
           assigneeIds,
           dueDate: dueDate || undefined,
         });
@@ -225,6 +235,25 @@ export function TaskModal({
                   <Tag
                     label={label}
                     variant={STATUS_VARIANTS[value as TaskStatus]}
+                  />
+                </label>
+              ))}
+            </fieldset>
+            <fieldset className={styles.formGroupFieldRadio}>
+              <legend className={styles.formLabel}>Priorité :</legend>
+              {Object.entries(PRIORITY_LABEL).map(([value, label]) => (
+                <label key={value} className={styles.statusChoice}>
+                  <input
+                    type="radio"
+                    name="priority"
+                    value={value}
+                    checked={priority === value}
+                    onChange={() => setPriority(value as TaskPriority)}
+                    className={styles.visuallyHidden}
+                  />
+                  <Tag
+                    label={label}
+                    variant={PRIORITY_VARIANTS[value as TaskPriority]}
                   />
                 </label>
               ))}

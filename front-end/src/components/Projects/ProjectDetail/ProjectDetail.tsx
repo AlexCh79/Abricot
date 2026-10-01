@@ -18,6 +18,7 @@ import {
   OwnerChip,
   OwnerInitials,
 } from "@/components/Chips/Chips";
+import { sortTasks } from "@/utils/tasks";
 import { Search } from "@/components/Inputs/Search";
 import { TaskCard } from "@/components/Cards/TaskCard/TaskCard";
 import type { Task } from "@/types/Task";
@@ -181,7 +182,7 @@ export const ProjectDetail = ({ projectId }: ProjectDetailProps) => {
           </div>
         </div>
         <div className={styles.detailContentList}>
-          {project.tasks.map((task) => (
+          {sortTasks(project.tasks).map((task) => (
             <TaskCard
               key={task.id}
               task={task}

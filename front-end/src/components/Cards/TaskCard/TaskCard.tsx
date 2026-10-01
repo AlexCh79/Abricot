@@ -3,7 +3,12 @@ import { useState, useId } from "react";
 import styles from "./TaskCard.module.scss";
 import type { Task } from "@/types/Task";
 import { Tag } from "@/components/tags/Tag";
-import { STATUS_LABEL, STATUS_VARIANTS } from "@/utils/tasks";
+import {
+  STATUS_LABEL,
+  STATUS_VARIANTS,
+  PRIORITY_LABEL,
+  PRIORITY_VARIANTS,
+} from "@/utils/tasks";
 import { MoreButton } from "@/components/buttons/IconButton/IconButton";
 import { formatDueDate, commentDate } from "@/utils/dates";
 import {
@@ -56,6 +61,10 @@ export const TaskCard = ({ task, onEdit }: TaskCardProps) => {
             <Tag
               label={STATUS_LABEL[task.status]}
               variant={STATUS_VARIANTS[task.status]}
+            />
+            <Tag
+              label={PRIORITY_LABEL[task.priority]}
+              variant={PRIORITY_VARIANTS[task.priority]}
             />
           </div>
           <p className={styles.taskCardSubtitle}>{task.description}</p>
