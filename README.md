@@ -6,10 +6,10 @@ attribution de tâches à des contributeurs, suivi d'avancement et commentaires.
 Projet réalisé dans le cadre de la formation Développeur Full-Stack (OpenClassrooms).
 L'API REST était fournie ; le travail porte sur l'application front-end.
 
-| Dossier | Contenu |
-| --- | --- |
-| [`front-end/`](front-end) | Application Next.js — le code réalisé pour ce projet |
-| [`back-end/`](back-end/README.md) | API REST fournie (Express, Prisma, SQLite) |
+| Dossier                           | Contenu                                              |
+| --------------------------------- | ---------------------------------------------------- |
+| [`front-end/`](front-end)         | Application Next.js — le code réalisé pour ce projet |
+| [`back-end/`](back-end/README.md) | API REST fournie (Express, Prisma, SQLite)           |
 
 <!-- TODO : ajouter une capture d'écran de l'application et, le cas échéant, l'URL de démonstration -->
 
@@ -24,7 +24,9 @@ L'API REST était fournie ; le travail porte sur l'application front-end.
 - [Structure du projet](#structure-du-projet)
 - [Conventions de code](#conventions-de-code)
 - [Accessibilité](#accessibilité)
+- [Responsive](#responsive)
 - [Écarts constatés avec la documentation de l'API](#écarts-constatés-avec-la-documentation-de-lapi)
+- [Écarts constatés avec la maquette](#écarts-constatés-avec-la-maquette)
 
 ## Stack technique
 
@@ -32,11 +34,11 @@ Chaque dépendance du `package.json` du front-end est justifiée ci-dessous.
 
 ### Dépendances de production
 
-| Paquet | Version | Rôle |
-| --- | --- | --- |
-| `next` | 16.3.5 | Framework React : routage par fichiers (App Router), composants serveur, métadonnées SEO et protection des routes via `proxy.ts`. |
-| `react` / `react-dom` | 19.2.8 | Bibliothèque d'interface, socle de Next.js. |
-| `sass` | ^1.104 | Préprocesseur CSS utilisé avec les CSS Modules : variables du design system, imbrication et mixins, sans nom de classe global. |
+| Paquet                | Version | Rôle                                                                                                                              |
+| --------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| `next`                | 16.3.5  | Framework React : routage par fichiers (App Router), composants serveur, métadonnées SEO et protection des routes via `proxy.ts`. |
+| `react` / `react-dom` | 19.2.8  | Bibliothèque d'interface, socle de Next.js.                                                                                       |
+| `sass`                | ^1.104  | Préprocesseur CSS utilisé avec les CSS Modules : variables du design system, imbrication et mixins, sans nom de classe global.    |
 
 Aucune bibliothèque de composants ni de gestion d'état n'a été ajoutée : les besoins du
 projet (formulaires contrôlés, appels API, état local et partagé) sont couverts par React
@@ -45,11 +47,11 @@ native, sans client HTTP supplémentaire.
 
 ### Dépendances de développement
 
-| Paquet | Rôle |
-| --- | --- |
-| `typescript`, `@types/node`, `@types/react`, `@types/react-dom` | Typage statique : les réponses de l'API sont décrites dans `src/types/`. |
-| `eslint`, `eslint-config-next` | Analyse statique, incluant les règles d'accessibilité `jsx-a11y` et les bonnes pratiques Next.js. |
-| `prettier` | Formatage automatique et homogène du code. |
+| Paquet                                                          | Rôle                                                                                              |
+| --------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| `typescript`, `@types/node`, `@types/react`, `@types/react-dom` | Typage statique : les réponses de l'API sont décrites dans `src/types/`.                          |
+| `eslint`, `eslint-config-next`                                  | Analyse statique, incluant les règles d'accessibilité `jsx-a11y` et les bonnes pratiques Next.js. |
+| `prettier`                                                      | Formatage automatique et homogène du code.                                                        |
 
 ## Prérequis
 
@@ -118,24 +120,24 @@ L'application est disponible sur <http://localhost:8001>.
 La base de démonstration est alimentée par `npm run seed` (dans `back-end/`). Elle
 contient 10 comptes partageant le même mot de passe :
 
-| Email | Mot de passe |
-| --- | --- |
+| Email               | Mot de passe  |
+| ------------------- | ------------- |
 | `alice@example.com` | `P@ssword123` |
-| `bob@example.com` | `P@ssword123` |
-| … | … |
+| `bob@example.com`   | `P@ssword123` |
+| …                   | …             |
 
 ## Scripts disponibles
 
 Depuis le dossier `front-end/` :
 
-| Commande | Description |
-| --- | --- |
-| `npm run dev` | Démarre le serveur de développement sur le port 8001. |
-| `npm run build` | Compile l'application pour la production. |
-| `npm run start` | Démarre l'application compilée sur le port 8001. |
-| `npm run lint` | Analyse le code avec ESLint. |
-| `npm run format` | Formate l'ensemble du code avec Prettier. |
-| `npx tsc --noEmit` | Vérifie les types sans générer de fichiers. |
+| Commande           | Description                                           |
+| ------------------ | ----------------------------------------------------- |
+| `npm run dev`      | Démarre le serveur de développement sur le port 8001. |
+| `npm run build`    | Compile l'application pour la production.             |
+| `npm run start`    | Démarre l'application compilée sur le port 8001.      |
+| `npm run lint`     | Analyse le code avec ESLint.                          |
+| `npm run format`   | Formate l'ensemble du code avec Prettier.             |
+| `npx tsc --noEmit` | Vérifie les types sans générer de fichiers.           |
 
 ## Structure du projet
 
@@ -233,33 +235,67 @@ L'objectif est la conformité **WCAG 2.1 niveau AA**. Principaux points traités
   (`aria-hidden="true"` ou `alt=""`) ; aucun bouton n'est laissé sans nom accessible.
 - **Structure** : un seul `<h1>` par page et des niveaux de titres non sautés.
 
+- **Composants interactifs sur mesure** : les cases à cocher et boutons radio stylés (choix
+  des contributeurs, statut et priorité d'une tâche) reposent sur de vrais `<input>`
+  masqués par une classe utilitaire `clip-path`, et non `display: none` ou
+  `visibility: hidden` qui les retireraient de l'ordre de tabulation. Les sections
+  dépliables utilisent `aria-expanded` et `aria-controls`, les bascules `aria-pressed`.
+- **Identifiants uniques** : tout composant rendu en plusieurs exemplaires génère ses `id`
+  avec `useId()`, pour éviter les doublons qui casseraient les relations ARIA.
+
 Vérifications effectuées avec l'extension **WAVE**, les avertissements ESLint `jsx-a11y`
 et une navigation complète au clavier.
 
 <!-- TODO : ajouter les scores Lighthouse une fois l'application terminée -->
+
+## Responsive
+
+L'interface est adaptative sans framework CSS :
+
+- marges fluides avec `clamp(min, préféré, max)` plutôt que des valeurs fixes ;
+- grilles auto-adaptatives (`repeat(auto-fit, minmax(…))`) qui changent de nombre de
+  colonnes sans media query ;
+- aucune largeur fixe sur les composants réutilisables : `width: 100%` plafonné par
+  `max-width` ;
+- un seul point de rupture (749 px), centralisé dans un mixin `@include mobile`.
 
 ## Écarts constatés avec la documentation de l'API
 
 Ces écarts ont été identifiés en comparant la documentation Swagger au code source du
 backend, puis vérifiés par des appels réels à l'API.
 
-| Constat | Détail | Traitement côté front |
-| --- | --- | --- |
-| Routes non documentées | `PUT /auth/profile` et `PUT /auth/password` existent et fonctionnent, mais n'apparaissent pas dans Swagger (annotations absentes). | Contrat lu dans `back-end/src/routes/authRoutes.ts` et vérifié par appel direct. |
-| Format des erreurs de validation | Swagger annonce un tableau `details` à la racine ; l'API renvoie en réalité `data.errors`. | Le type `ApiError` décrit la réponse réelle. |
-| Message de mot de passe incomplet | `PUT /auth/password` n'indique pas le caractère spécial dans son message d'erreur, alors que sa validation l'exige. | La consigne affichée à l'utilisateur mentionne `(@$!%*?&)`. |
-| Tri des priorités | `/dashboard/assigned-tasks` trie par `priority` croissant ; le champ étant une chaîne, le tri est alphabétique (`HIGH, LOW, MEDIUM, URGENT`) et non hiérarchique. | Les tâches sont retriées côté client selon l'ordre métier. |
-| Nom unique | La maquette prévoit des champs « Nom » et « Prénom » distincts ; l'API ne stocke qu'un champ `name`. | Conversion dans `src/utils/name.ts` (format `"Prénom Nom"`), au prix d'une ambiguïté sur les prénoms composés. |
-| Progression non fournie | `GET /projects` ne renvoie que le nombre total de tâches (`_count.tasks`), sans leur statut ; `/dashboard/projects-with-tasks` ne renvoie que les tâches assignées à l'utilisateur, donc une progression partielle. | Les tâches de chaque projet sont chargées en parallèle (`Promise.all`) pour calculer l'avancement réel. Un champ agrégé côté API éviterait ces requêtes supplémentaires. |
-| Contributeurs inconnus ignorés | `POST /projects` accepte une liste d'emails et ajoute silencieusement ceux qui correspondent à un compte existant, sans signaler les autres. | <!-- TODO : comparer la liste envoyée aux membres reçus pour prévenir l'utilisateur --> |
-| Mot de passe oublié | Le lien figure sur la maquette de connexion, mais aucune route de l'API ne le gère. | <!-- TODO : décider du comportement retenu --> |
+| Constat                                 | Détail                                                                                                                                                                                                                                                                                              | Traitement côté front                                                                                                                                                    |
+| --------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Routes non documentées                  | `PUT /auth/profile` et `PUT /auth/password` existent et fonctionnent, mais n'apparaissent pas dans Swagger (annotations absentes).                                                                                                                                                                  | Contrat lu dans `back-end/src/routes/authRoutes.ts` et vérifié par appel direct.                                                                                         |
+| Format des erreurs de validation        | Swagger annonce un tableau `details` à la racine ; l'API renvoie en réalité `data.errors`.                                                                                                                                                                                                          | Le type `ApiError` décrit la réponse réelle.                                                                                                                             |
+| Message de mot de passe incomplet       | `PUT /auth/password` n'indique pas le caractère spécial dans son message d'erreur, alors que sa validation l'exige.                                                                                                                                                                                 | La consigne affichée à l'utilisateur mentionne `(@$!%*?&)`.                                                                                                              |
+| Tri des priorités                       | `priority` est stocké comme une chaîne : le tri SQL est donc alphabétique. `/dashboard/assigned-tasks` trie en ordre croissant (`HIGH, LOW, MEDIUM, URGENT`) et `/projects/:id/tasks` en ordre décroissant (`URGENT, MEDIUM, LOW, HIGH`) — les deux sont incorrects, et différents l'un de l'autre. | Les tâches sont retriées côté client (`sortTasks`) selon l'ordre métier URGENT → LOW.                                                                                    |
+| Statut ignoré à la création d'une tâche | `POST /projects/:id/tasks` ne lit que `title`, `description`, `priority`, `dueDate` et `assigneeIds` : le `status` envoyé est ignoré et toute tâche naît en `TODO`.                                                                                                                                 | Un `PUT` est enchaîné immédiatement après la création lorsque le statut choisi n'est pas `TODO`.                                                                         |
+| Recherche d'utilisateurs isolée         | `GET /users/search?query=` (2 caractères minimum) est déclarée directement dans `back-end/src/index.ts` et non dans un fichier de `routes/`, ce qui la rend facile à manquer.                                                                                                                       | Utilisée pour le choix des contributeurs d'un projet.                                                                                                                    |
+| Nom unique                              | La maquette prévoit des champs « Nom » et « Prénom » distincts ; l'API ne stocke qu'un champ `name`.                                                                                                                                                                                                | Conversion dans `src/utils/name.ts` (format `"Prénom Nom"`), au prix d'une ambiguïté sur les prénoms composés.                                                           |
+| Progression non fournie                 | `GET /projects` ne renvoie que le nombre total de tâches (`_count.tasks`), sans leur statut ; `/dashboard/projects-with-tasks` ne renvoie que les tâches assignées à l'utilisateur, donc une progression partielle.                                                                                 | Les tâches de chaque projet sont chargées en parallèle (`Promise.all`) pour calculer l'avancement réel. Un champ agrégé côté API éviterait ces requêtes supplémentaires. |
+| Contributeurs inconnus ignorés          | `POST /projects` accepte une liste d'emails et ajoute silencieusement ceux qui correspondent à un compte existant, sans signaler les autres.                                                                                                                                                        | <!-- TODO : comparer la liste envoyée aux membres reçus pour prévenir l'utilisateur -->                                                                                  |
+
+## Écarts constatés avec la maquette
+
+La maquette fournie présente plusieurs manques ou incohérences. Chaque arbitrage est
+documenté ci-dessous.
+
+| Constat                                                                                                                                                              | Choix retenu                                                                                                                                                                                                       |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Les écrans 404 et les versions mobiles ne sont pas fournis (maquette en 1440 px uniquement), alors que les deux sont attendus.                                       | Écrans composés à partir des éléments existants (logo, typographies, boutons) et déclinaison responsive décrite plus haut.                                                                                         |
+| Le tri des tâches est annoncé « par ordre de priorité », mais aucun écran ne permet de consulter ni de définir cette priorité.                                       | Un sélecteur de priorité a été ajouté dans la modale de tâche (l'API accepte ce champ dès la création) et la priorité est affichée sur chaque carte.                                                               |
+| Le bouton « Voir » des cartes du tableau de bord ne mène à aucun écran : aucune vue de détail d'une tâche n'est définie.                                             | La tâche s'ouvre dans la modale générique, qui réutilise le composant `TaskCard` (informations complètes et commentaires). Une page dédiée aurait permis le partage d'URL, mais aucune maquette ne la définissait. |
+| Aucun moyen de supprimer une tâche n'est prévu, alors que la route `DELETE` existe.                                                                                  | Suppression ajoutée dans la modale de modification, avec confirmation en deux temps.                                                                                                                               |
+| La modale de tâche ne propose que trois statuts ; l'API en connaît quatre (`CANCELLED`).                                                                             | <!-- TODO : décider si le statut « Annulée » est proposé à la saisie -->                                                                                                                                           |
+| Le choix des contributeurs d'un projet est présenté comme une liste déroulante, mais aucune route ne permet de lister les utilisateurs — seule une recherche existe. | Champ de recherche assorti d'une liste de résultats à cocher, et pastilles récapitulatives.                                                                                                                        |
+| Les assignés d'une tâche sont résumés dans le select (« 2 collaborateurs »), ce qu'un `<select>` natif ne permet pas.                                                | Select d'ajout + pastilles affichant chaque personne, avec retrait au clic.                                                                                                                                        |
+| Le lien « Mot de passe oublié » figure sur l'écran de connexion, sans route correspondante dans l'API.                                                               | <!-- TODO : décider du comportement retenu -->                                                                                                                                                                     |
 
 ## Maquettes
 
-<!-- TODO : lien vers le fichier Figma -->
-
-Les maquettes fournies ne couvrent ni la page 404 ni les versions mobiles : ces écrans ont
-été conçus à partir des composants existants, en responsive.
+Lien vers la maquette :
+https://www.figma.com/design/4dE90dtmpQNUS05IGd9HxT/Abricot?node-id=0-1&p=f&t=pU8WLAdg5Raz9RdD-0
 
 ## Auteur
 
