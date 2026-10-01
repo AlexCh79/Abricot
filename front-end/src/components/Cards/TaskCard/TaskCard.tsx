@@ -58,14 +58,16 @@ export const TaskCard = ({ task, onEdit }: TaskCardProps) => {
         <div className={styles.taskCardTitleWrapper}>
           <div className={styles.taskCardTitleAndStatus}>
             <h4 className={styles.taskCardTitle}>{task.title}</h4>
-            <Tag
-              label={STATUS_LABEL[task.status]}
-              variant={STATUS_VARIANTS[task.status]}
-            />
-            <Tag
-              label={PRIORITY_LABEL[task.priority]}
-              variant={PRIORITY_VARIANTS[task.priority]}
-            />
+            <div className={styles.taskTagsContainer}>
+              <Tag
+                label={STATUS_LABEL[task.status]}
+                variant={STATUS_VARIANTS[task.status]}
+              />
+              <Tag
+                label={PRIORITY_LABEL[task.priority]}
+                variant={PRIORITY_VARIANTS[task.priority]}
+              />
+            </div>
           </div>
           <p className={styles.taskCardSubtitle}>{task.description}</p>
         </div>

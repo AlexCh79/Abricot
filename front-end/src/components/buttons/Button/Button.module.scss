@@ -1,7 +1,8 @@
 @use "@/styles/variables" as *;
 
 .btnBlack {
-  width: 249px;
+  width: 100%;
+  max-width: 249px;
   height: 50px;
   border-radius: 10px;
   padding: 13px;
@@ -21,5 +22,7 @@
   &:disabled {
     background-color: $color-grey-200;
     color: $color-grey-400;
+    border: none;
+    cursor: not-allowed;
   }
 }

@@ -12,6 +12,9 @@
   gap: 24px;
   padding: 25px 40px;
   width: 100%;
+  @include mobile {
+    padding: 20px;
+  }
 }
 
 .taskCardTitleContainer {
@@ -19,19 +22,36 @@
   width: 100%;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.taskTagsContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  width: 100%;
+  flex-wrap: wrap;
 }
 
 .taskCardTitleWrapper {
   display: flex;
   flex-direction: column;
   gap: 7px;
+  flex: 1;
+  min-width: 0;
 }
 
 .taskCardTitleAndStatus {
   display: flex;
   flex-direction: row;
+  text-wrap: nowrap;
   gap: 8px;
+  @include mobile {
+    flex-direction: column;
+    align-items: flex-start;
+    text-wrap: wrap;
+  }
 }
 
 .taskCardTitle {
@@ -51,6 +71,7 @@
   align-items: center;
   max-width: fit-content;
   gap: 4px;
+  width: 100%;
 }
 
 .taskCalendarTitle {
@@ -78,6 +99,8 @@
   flex-direction: row;
   gap: 8px;
   align-items: center;
+  flex-wrap: wrap;
+  text-align: center;
 }
 
 .taskAssigneesTitle {
@@ -214,10 +237,4 @@
   &:focus-visible {
     outline: 1px solid $color-brand-dark-orange;
   }
-}
-
-.errorText {
-  color: $error-red;
-  font-size: $body-s;
-  text-align: center;
 }

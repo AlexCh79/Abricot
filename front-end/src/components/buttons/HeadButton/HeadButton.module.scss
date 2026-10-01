@@ -1,4 +1,5 @@
 @use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
 
 .btnLink {
   display: flex;
@@ -21,7 +22,7 @@
     background-color: $color-grey-950;
     color: $color-white;
   }
-  @media screen and (max-width: 749px) {
+  @include mobile {
     width: fit-content;
     padding: 2px;
   }
@@ -34,7 +35,7 @@
 
 .btnTitle {
   font-size: $body-m;
-  @media screen and (max-width: 749px) {
+  @include mobile {
     display: none;
   }
 }

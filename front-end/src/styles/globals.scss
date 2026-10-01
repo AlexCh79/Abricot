@@ -43,3 +43,9 @@ h4 {
 h5 {
   @include font-h5;
 }
+
+.errorText {
+  color: $error-red;
+  font-size: $body-s;
+  text-align: center;
+}

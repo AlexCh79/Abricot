@@ -5,7 +5,11 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: 0 100px;
+  align-items: center;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 clamp(16px, 5vw, 100px);
 }
 
 .projectsHeader {
@@ -13,7 +17,8 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  @media screen and (max-width: 749px) {
+  width: 100%;
+  @include mobile {
     flex-direction: column;
     gap: 30px;
   }
@@ -25,11 +30,13 @@
   align-items: flex-start;
   justify-content: center;
   gap: 14px;
+  width: 100%;
   margin-top: 89px;
   text-align: left;
 }
 
 .projectsTitle {
+  width: 100%;
   color: $color-grey-800;
   @include font-h4;
 }
@@ -39,5 +46,6 @@
 }
 
 .projectsContent {
+  width: 100%;
   margin: 60px 0;
 }

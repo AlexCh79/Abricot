@@ -10,20 +10,7 @@
 
 .list {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  row-gap: 16px;
-  column-gap: 16px;
-  @media screen and (max-width: 749px) {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 16px;
-  }
-}
-
-.errorText {
-  color: $error-red;
-  font-size: $body-s;
-  text-align: center;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 380px));
+  gap: 24px;
+  justify-content: space-between;
 }

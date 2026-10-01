@@ -1,12 +1,12 @@
 @use "@/styles/variables" as *;
-
+@use "@/styles/mixins" as *;
 .loginPage {
   display: flex;
 }
 
 .loginBg {
   z-index: 1;
-  @media screen and (max-width: 749px) {
+  @include mobile {
     display: none;
   }
 }
@@ -21,8 +21,9 @@
   background-color: $color-grey-50;
   width: 562px;
   height: 100vh;
-  @media screen and (max-width: 749px) {
+  @include mobile {
     width: 100%;
+    padding: 40px 20px;
   }
 }
 
@@ -32,6 +33,7 @@
   height: 385px;
   display: flex;
   flex-direction: column;
+  width: 100%;
   gap: 30px;
 }
 
@@ -42,6 +44,7 @@
 
 .loginFormGroupField {
   width: fit-content;
+  width: 100%;
   max-width: 282px;
   height: 300px;
   display: flex;
@@ -55,6 +58,7 @@
   display: flex;
   flex-direction: column;
   gap: 29px;
+  width: 100%;
 }
 
 .loginFormGroup {
@@ -73,7 +77,8 @@
   border: 1px solid $color-grey-200;
   padding: 10px;
   background-color: $color-white;
-  width: 282px;
+  width: 100%;
+  max-width: 282px;
   height: 53px;
   color: $color-grey-600;
   font-size: $body-xs;
@@ -91,6 +96,12 @@
   flex-direction: row;
   gap: 10px;
   font-size: $body-s;
+  @include mobile {
+    flex-direction: column;
+    text-wrap: nowrap;
+    align-items: center;
+    text-align: center;
+  }
 }
 
 .loginLink {
@@ -98,10 +109,4 @@
   &:focus-visible {
     color: $color-grey-950;
   }
-}
-
-.errorText {
-  color: $error-red;
-  font-size: $body-s;
-  text-align: center;
 }

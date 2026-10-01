@@ -24,3 +24,11 @@
   font-weight: 600;
   font-size: 1.125em; // 18px
 }
+
+$breakpoint-mobile: 749px;
+
+@mixin mobile {
+  @media screen and (max-width: $breakpoint-mobile) {
+    @content;
+  }
+}

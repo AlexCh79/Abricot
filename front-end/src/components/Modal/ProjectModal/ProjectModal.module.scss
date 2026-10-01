@@ -6,7 +6,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 550px;
+  max-width: 550px;
+  width: 100%;
   border-radius: 10px;
   padding: 40px 60px;
   gap: 56px;
@@ -36,7 +37,7 @@
   justify-content: space-between;
   width: 100%;
   gap: 30px;
-  @media screen and (max-width: 749px) {
+  @include mobile {
     flex-direction: column;
   }
 }
@@ -89,12 +90,6 @@
   padding: 19px 17px;
   color: $color-grey-600;
   font-size: $body-xs;
-}
-
-.errorText {
-  color: $error-red;
-  font-size: $body-s;
-  text-align: center;
 }
 
 .contributorsField {
