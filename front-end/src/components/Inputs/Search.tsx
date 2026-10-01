@@ -14,6 +14,11 @@ export const Search = ({
 }: SearchProps) => {
   const [item, setItem] = useState("");
 
+  const handleChange = (value: string) => {
+    setItem(value);
+    onSearch?.(value);
+  };
+
   const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     onSearch?.(item);
@@ -25,7 +30,7 @@ export const Search = ({
         id="search"
         name="search"
         value={item}
-        onChange={(e) => setItem(e.target.value)}
+        onChange={(e) => handleChange(e.target.value)}
         placeholder={placeholder}
         aria-label={placeholder}
         className={styles.searchInput}

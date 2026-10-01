@@ -21,7 +21,7 @@ import {
 import { sortTasks } from "@/utils/tasks";
 import { Search } from "@/components/Inputs/Search";
 import { TaskCard } from "@/components/Cards/TaskCard/TaskCard";
-import type { Task } from "@/types/Task";
+import type { Task, TaskStatus } from "@/types/Task";
 
 type ProjectDetailProps = {
   projectId: string;
@@ -35,7 +35,8 @@ export const ProjectDetail = ({ projectId }: ProjectDetailProps) => {
   const [isTaskCreateOpen, setIsTaskCreateOpen] = useState(false);
   const router = useRouter();
   const [editingTask, setEditingTask] = useState<Task | null>(null);
-
+  const [statusFilter, setStatusFilter] = useState<TaskStatus | "">("");
+  const [search, setSearch] = useState("");
   const assignableUsers = [
     ...(project?.owner ? [project.owner] : []),
     ...(project?.members.map((member) => member.user) ?? []),
@@ -89,6 +90,17 @@ export const ProjectDetail = ({ projectId }: ProjectDetailProps) => {
         {error || "Projet introuvable"}
       </p>
     );
+
+  const visibleTasks = sortTasks(
+    project.tasks.filter((task) => {
+      const matchesStatus = !statusFilter || task.status === statusFilter;
+      const matchesSearch = task.title
+        .toLowerCase()
+        .includes(search.trim().toLowerCase());
+
+      return matchesStatus && matchesSearch;
+    }),
+  );
 
   return (
     <div className={styles.detailPage}>
@@ -172,23 +184,37 @@ export const ProjectDetail = ({ projectId }: ProjectDetailProps) => {
                 isActive={false}
               />
             </div>
-            <select className={styles.detailContentBannerSelectStatus}>
+            <select
+              className={styles.detailContentBannerSelectStatus}
+              value={statusFilter}
+              onChange={(e) =>
+                setStatusFilter(e.target.value as TaskStatus | "")
+              }
+            >
               <option value="">Statut</option>
               <option value="TODO">À faire</option>
               <option value="IN_PROGRESS">En Cours</option>
               <option value="DONE">Terminée</option>
             </select>
-            <Search placeholder="Rechercher une tâche" />
+            <Search placeholder="Rechercher une tâche" onSearch={setSearch} />
           </div>
         </div>
         <div className={styles.detailContentList}>
-          {sortTasks(project.tasks).map((task) => (
-            <TaskCard
-              key={task.id}
-              task={task}
-              onEdit={() => setEditingTask(task)}
-            />
-          ))}
+          {visibleTasks.length === 0 ? (
+            <p>
+              {project.tasks.length === 0
+                ? "Aucune tâche dans ce projet pour le moment."
+                : "Aucune tâche ne correspond à votre recherche."}
+            </p>
+          ) : (
+            visibleTasks.map((task) => (
+              <TaskCard
+                key={task.id}
+                task={task}
+                onEdit={() => setEditingTask(task)}
+              />
+            ))
+          )}
         </div>
       </div>
       {isTaskCreateOpen && (
