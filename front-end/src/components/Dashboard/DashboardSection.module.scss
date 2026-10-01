@@ -1,0 +1,96 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+
+.dashboardPage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 100px;
+  @include mobile {
+    margin: 5px;
+  }
+}
+
+.dashboardHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  @include mobile {
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+  }
+}
+
+.dashboardTitleWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 89px;
+  text-align: left;
+}
+
+.dashboardTitle {
+  color: $color-grey-800;
+  @include font-h4;
+}
+
+.dashboardSubtitle {
+  font-size: $body-l;
+}
+
+.btnBar {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  margin-top: 40px;
+}
+
+.dashboardContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid $color-grey-200;
+  border-radius: 10px;
+  padding: 40px 59px;
+  gap: 41px;
+  margin-top: 30px;
+  background-color: $color-white;
+  @include mobile {
+    padding: 20px;
+  }
+}
+
+.dashboardContentHead {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  @include mobile {
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+  }
+}
+
+.dashboardContentTitleBar {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 8px;
+}
+
+.dashboardContentTitle {
+  @include font-h5;
+}
+
+.dashboardContentSubtitle {
+  font-size: $body-m;
+  color: $color-grey-600;
+}
