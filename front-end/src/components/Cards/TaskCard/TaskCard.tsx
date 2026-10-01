@@ -23,9 +23,10 @@ import { createComment } from "@/services/commentService";
 type TaskCardProps = {
   task: Task;
   onEdit?: () => void;
+  titleId?: string;
 };
 
-export const TaskCard = ({ task, onEdit }: TaskCardProps) => {
+export const TaskCard = ({ task, onEdit, titleId }: TaskCardProps) => {
   const [isCommentOpen, setIsCommentOpen] = useState(false);
   const [commentAdded, setCommentAdded] = useState("");
   const [commentError, setCommentError] = useState("");
@@ -57,7 +58,9 @@ export const TaskCard = ({ task, onEdit }: TaskCardProps) => {
       <div className={styles.taskCardTitleContainer}>
         <div className={styles.taskCardTitleWrapper}>
           <div className={styles.taskCardTitleAndStatus}>
-            <h4 className={styles.taskCardTitle}>{task.title}</h4>
+            <h4 id={titleId} className={styles.taskCardTitle}>
+              {task.title}
+            </h4>
             <div className={styles.taskTagsContainer}>
               <Tag
                 label={STATUS_LABEL[task.status]}
@@ -71,10 +74,12 @@ export const TaskCard = ({ task, onEdit }: TaskCardProps) => {
           </div>
           <p className={styles.taskCardSubtitle}>{task.description}</p>
         </div>
-        <MoreButton
-          label={`Modifier la tâche ${task.title}`}
-          onClick={onEdit}
-        />
+        {onEdit && (
+          <MoreButton
+            label={`Modifier la tâche ${task.title}`}
+            onClick={onEdit}
+          />
+        )}
       </div>
       <div className={styles.taskCalendarContainer}>
         <span className={styles.taskCalendarTitle}>Échéance : </span>

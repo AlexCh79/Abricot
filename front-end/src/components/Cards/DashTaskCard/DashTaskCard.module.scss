@@ -1,0 +1,97 @@
+@use "@/styles/variables.scss" as *;
+@use "@/styles/mixins.scss" as *;
+
+.plentyCard {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1022px;
+  border: 1px solid $color-grey-200;
+  border-radius: 10px;
+  padding: 25px 40px;
+  background-color: $color-white;
+  @include mobile {
+    flex-direction: column;
+    gap: 20px;
+    padding: 10px 25px;
+  }
+}
+
+.plentyCardLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  align-items: flex-start;
+}
+
+.plentyCardRight {
+  display: flex;
+  flex-direction: column;
+  gap: 37px;
+  align-items: flex-end;
+  text-wrap: nowrap;
+  max-width: 121px;
+  width: 100%;
+  @include mobile {
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    max-width: 100%;
+  }
+}
+
+.plentyCardTitleContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.plentyCardTitle {
+  @include font-h5;
+  color: #000;
+}
+
+.plentyCardSubtitle {
+  $font-size: $body-s;
+  color: $color-grey-600;
+}
+
+.plentyCardContent {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  gap: 15px;
+  @include mobile {
+    flex-direction: column;
+  }
+}
+
+.plentyCardContentProject {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  text-wrap: nowrap;
+  flex-direction: row;
+  gap: 8px;
+  width: fit-content;
+  max-width: 300px;
+}
+
+.plentyCardProjectIcon {
+  width: 18px;
+  height: 14px;
+}
+
+.plentyCardProjectName {
+  font-size: $body-xs;
+  width: 100%;
+  color: $color-grey-600;
+}
+
+.plentyCardContentProject + .plentyCardContentProject {
+  border-left: 1px solid $color-grey-400;
+  padding-left: 12px;
+}

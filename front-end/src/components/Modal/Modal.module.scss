@@ -6,8 +6,26 @@
   width: calc(100% - 32px);
   align-self: center;
   justify-self: center;
+  position: relative;
 
   &::backdrop {
     background-color: rgb(0 0 0 / 0.5);
+  }
+}
+
+.closeButton {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 1;
+  display: flex;
+  padding: 8px;
+  border: none;
+  border-radius: 50%;
+  background-color: transparent;
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgb(0 0 0 / 0.06);
   }
 }

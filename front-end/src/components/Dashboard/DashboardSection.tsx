@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useId } from "react";
 import { useRouter } from "next/navigation";
 import styles from "./DashboardSection.module.scss";
 import { Button } from "@/components/buttons/Button/Button";
@@ -11,6 +11,9 @@ import { Search } from "@/components/Inputs/Search";
 import type { Task } from "@/types/Task";
 import { getAssignedTasks } from "@/services/dashService";
 import { sortTasks } from "@/utils/tasks";
+import DashTaskCard from "../Cards/DashTaskCard/DashTaskCard";
+import { Modal } from "../Modal/Modal";
+import { TaskCard } from "../Cards/TaskCard/TaskCard";
 
 export function DashboardSection() {
   const [isCreateOpen, setIsCreateOpen] = useState(false);
@@ -18,8 +21,11 @@ export function DashboardSection() {
   const [error, setError] = useState("");
   const [search, setSearch] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [viewedTask, setViewedTask] = useState<Task | null>(null);
+  const taskTitleId = useId();
   const router = useRouter();
-  // Récupération des projets et des tâches affiliées
+
+  // Récupération des tâches
   useEffect(() => {
     const loadTasks = async () => {
       try {
@@ -78,6 +84,35 @@ export function DashboardSection() {
             />
           </div>
         </div>
+        {isLoading && <p>Chargement de vos tâches...</p>}
+
+        {error && (
+          <p role="alert" className={styles.errorText}>
+            {error}
+          </p>
+        )}
+
+        {!isLoading && !error && visibleTasks.length === 0 && (
+          <p>
+            {tasks.length === 0
+              ? "Aucune tâche ne vous est assignée pour le moment."
+              : "Aucune tâche ne correspond à votre recherche."}
+          </p>
+        )}
+        {visibleTasks.map((task) => (
+          <div key={task.id} className={styles.dashCardContainer}>
+            <DashTaskCard task={task} onView={() => setViewedTask(task)} />
+          </div>
+        ))}
+        {viewedTask && (
+          <Modal
+            onClose={() => setViewedTask(null)}
+            labelledBy={taskTitleId}
+            withCloseButton
+          >
+            <TaskCard task={viewedTask} titleId={taskTitleId} />
+          </Modal>
+        )}
       </div>
       {isCreateOpen && (
         <ProjectModal
