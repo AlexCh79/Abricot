@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Modal } from "../Modal";
 import Image from "next/image";
 import { Button } from "@/components/buttons/Button/Button";
-import { createTask, updateTask } from "@/services/taskService";
+import { createTask, updateTask, deleteTask } from "@/services/taskService";
 import { STATUS_LABEL, STATUS_VARIANTS } from "@/utils/tasks";
 import { Tag } from "@/components/tags/Tag";
 import type { User } from "@/types/User";
@@ -40,6 +40,25 @@ export function TaskModal({
   const available = assignableUsers.filter(
     (user) => !assigneeIds.includes(user.id),
   );
+  const [isConfirmDelete, setIsConfirmDelete] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  const handleDelete = async () => {
+    if (!task) return;
+    setError("");
+    setIsDeleting(true);
+    try {
+      await deleteTask(projectId, task.id);
+      onDeleted?.();
+      onClose();
+    } catch (err) {
+      setError(
+        err instanceof Error ? err.message : "Suppression de tâche impossible.",
+      );
+    } finally {
+      setIsDeleting(false);
+    }
+  };
 
   const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -56,6 +75,7 @@ export function TaskModal({
           assigneeIds,
         });
         onUpdated?.(updated);
+        onClose();
       } else {
         const created = await createTask(projectId, {
           title,
@@ -99,7 +119,9 @@ export function TaskModal({
           />
         </button>
         <div className={styles.formContentWrapper}>
-          <h2 className={styles.formContentTitle}>Créer une tâche</h2>
+          <h2 className={styles.formContentTitle}>
+            {task ? "Modifier" : "Créer une tâche"}
+          </h2>
           <div className={styles.formContent}>
             <div className={styles.formGroupField}>
               <label htmlFor="title" className={styles.formLabel}>
@@ -212,11 +234,50 @@ export function TaskModal({
                 {error}
               </p>
             )}
-            <Button
-              label={isSaving ? "Création..." : "+ Ajouter une tâche"}
-              type="submit"
-              disabled={isSaving}
-            />
+            <div className={styles.btnZone}>
+              <Button
+                label={
+                  task
+                    ? isSaving
+                      ? "Modification..."
+                      : "Enregistrer"
+                    : isSaving
+                      ? "Création..."
+                      : "+ Ajouter une tâche"
+                }
+                type="submit"
+                disabled={isSaving}
+              />
+              {isConfirmDelete ? (
+                <div className={styles.confirmZone}>
+                  <p role="alert">
+                    Supprimer définitivement « {task?.title} » ?
+                  </p>
+                  <Button
+                    type="button"
+                    label="Annuler"
+                    autoFocus
+                    onClick={() => setIsConfirmDelete(false)}
+                  />
+                  <Button
+                    type="button"
+                    label={isDeleting ? "Suppression..." : "Oui, supprimer"}
+                    disabled={isDeleting}
+                    onClick={handleDelete}
+                  />
+                </div>
+              ) : (
+                <>
+                  {task && (
+                    <Button
+                      type="button"
+                      label="Supprimer"
+                      onClick={() => setIsConfirmDelete(true)}
+                    />
+                  )}
+                </>
+              )}
+            </div>
           </div>
         </div>
       </form>
