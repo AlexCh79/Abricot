@@ -1,0 +1,66 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+
+.page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: $color-grey-50;
+  padding: clamp(16px, 5vw, 60px);
+  gap: 30px;
+}
+
+.logo {
+  width: 100%;
+  max-width: 180px;
+  height: auto;
+}
+
+// Chiffre décoratif : il est masqué aux lecteurs d'écran
+.code {
+  font-family: var(--font-manrope);
+  font-size: clamp(3.5rem, 12vw, 5rem);
+  font-weight: 700;
+  line-height: 1;
+  color: $color-brand-dark-orange;
+}
+
+.title {
+  @include font-h4;
+  color: $color-grey-800;
+}
+
+.message {
+  font-size: $body-m;
+  color: $color-grey-600;
+  max-width: 40ch;
+}
+
+// Même apparence que le bouton noir, mais c'est un lien
+.link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  padding: 13px 24px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background-color: $color-grey-800;
+  color: $color-white;
+  font-size: $body-m;
+  text-decoration: none;
+  transition: all 300ms ease-out;
+
+  &:hover {
+    background-color: $color-white;
+    border-color: $color-brand-dark-orange;
+    color: $color-brand-orange-text;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $color-brand-orange-text;
+    outline-offset: 2px;
+  }
+}
