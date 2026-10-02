@@ -1,0 +1,74 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+
+.IaCreateTaskEmptyContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  width: 100%;
+  background-color: $color-white;
+  height: 100%;
+  max-height: 797px;
+  border: none;
+  min-height: 90vh;
+  border-radius: 10px;
+  padding: 69px 53px;
+  justify-content: space-between;
+  @include mobile {
+    padding: 50px 30px;
+  }
+}
+
+.IaCreateTaskEmptyTitle {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.IaCreateTaskTitle {
+  @include font-h4;
+  color: $color-grey-800;
+}
+
+.IaCreateContent {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+.IaCommentZone,
+.IaInput {
+  max-width: 494px;
+  border: none;
+  border-radius: 80px;
+  background-color: $color-grey-50;
+}
+
+.IaCommentZone {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 12px 32px;
+  gap: 10px;
+}
+
+.IaInput {
+  color: #000;
+  font-size: $body-2xs;
+  width: 100%;
+}
+
+.visuallyHidden {
+  @include visually-hidden;
+}
+
+.IaProposalList {
+  list-style: none;
+  text-align: center;
+}

@@ -24,6 +24,7 @@ import { TaskCard } from "@/components/Cards/TaskCard/TaskCard";
 import type { Task, TaskStatus } from "@/types/Task";
 import KanbanBoard from "@/components/Kanban/KanbanBoard";
 import { Modal } from "@/components/Modal/Modal";
+import { IaModal } from "@/components/Modal/IaModal/IaModal";
 
 type ProjectDetailProps = {
   projectId: string;
@@ -57,6 +58,9 @@ export const ProjectDetail = ({ projectId }: ProjectDetailProps) => {
     else params.delete("view");
     router.replace(`${pathname}?${params}`, { scroll: false });
   };
+
+  // Détermination de l'ouverture de la modale IA
+  const [isIaOpen, setIsIaOpen] = useState(false);
 
   const handleTaskUpdated = (updated: Task) => {
     setProject((current) =>
@@ -151,7 +155,7 @@ export const ProjectDetail = ({ projectId }: ProjectDetailProps) => {
             type="button"
             onClick={() => setIsTaskCreateOpen(true)}
           />
-          <SquareIaButton />
+          <SquareIaButton onClick={() => setIsIaOpen(true)} />
         </div>
       </div>
       <div className={styles.detailHeaderContributors}>
@@ -281,6 +285,7 @@ export const ProjectDetail = ({ projectId }: ProjectDetailProps) => {
           <TaskCard task={viewedTask} titleId={taskTitleId} />
         </Modal>
       )}
+      {isIaOpen && <IaModal onClose={() => setIsIaOpen(false)} />}
     </div>
   );
 };
