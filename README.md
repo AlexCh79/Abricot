@@ -222,6 +222,9 @@ L'objectif est la conformité **WCAG 2.1 niveau AA**. Principaux points traités
   blanc, insuffisant pour du texte de taille normale. Une variante assombrie
   (`$color-brand-orange-text`) est utilisée pour le texte, la couleur d'origine étant
   conservée pour les icônes et les grands éléments, qui n'exigent que 3:1.
+  Les couleurs système (succès, erreur, avertissement, information, désactivé) posaient le
+  même problème sur leurs fonds clairs — entre 2,34:1 et 3,90:1. Leurs teintes de texte ont
+  été assombries pour atteindre 4,5:1 au minimum, les fonds restant ceux de la maquette.
 - **Navigation** : le lien de la page courante porte `aria-current="page"`, qui sert à la
   fois au style et à l'annonce par les lecteurs d'écran. Les états de focus sont visibles
   au clavier (`:focus-visible`).
@@ -234,7 +237,6 @@ L'objectif est la conformité **WCAG 2.1 niveau AA**. Principaux points traités
 - **Images et icônes** : les icônes décoratives sont masquées aux lecteurs d'écran
   (`aria-hidden="true"` ou `alt=""`) ; aucun bouton n'est laissé sans nom accessible.
 - **Structure** : un seul `<h1>` par page et des niveaux de titres non sautés.
-
 - **Composants interactifs sur mesure** : les cases à cocher et boutons radio stylés (choix
   des contributeurs, statut et priorité d'une tâche) reposent sur de vrais `<input>`
   masqués par une classe utilitaire `clip-path`, et non `display: none` ou
@@ -243,8 +245,10 @@ L'objectif est la conformité **WCAG 2.1 niveau AA**. Principaux points traités
 - **Identifiants uniques** : tout composant rendu en plusieurs exemplaires génère ses `id`
   avec `useId()`, pour éviter les doublons qui casseraient les relations ARIA.
 
-Vérifications effectuées avec l'extension **WAVE**, les avertissements ESLint `jsx-a11y`
-et une navigation complète au clavier.
+Vérifications effectuées avec l'extension **WAVE**, les avertissements ESLint `jsx-a11y`,
+et un parcours complet au clavier : navigation entre les pages, ouverture et fermeture des
+modales (Échap et bouton dédié), déplacement dans les groupes de boutons radio avec les
+flèches, et activation des sections dépliables — sans souris et sans perte du focus visible.
 
 <!-- TODO : ajouter les scores Lighthouse une fois l'application terminée -->
 

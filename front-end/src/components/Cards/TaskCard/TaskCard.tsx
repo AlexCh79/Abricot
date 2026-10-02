@@ -113,11 +113,7 @@ export const TaskCard = ({ task, onEdit, titleId }: TaskCardProps) => {
           <span className={styles.taskCommentsTitle}>
             Commentaires ({comments.length})
           </span>
-          <img
-            src="/icon_top_arrow.svg"
-            alt="Liste des commentaires"
-            className={styles.iconArrow}
-          />
+          <img src="/icon_top_arrow.svg" alt="" className={styles.iconArrow} />
         </button>
       </div>
       {/* Emplacement des commentaires affichés */}

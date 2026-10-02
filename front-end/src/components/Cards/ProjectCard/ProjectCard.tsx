@@ -15,11 +15,11 @@ export function ProjectCard({ project }: ProjectCardProps) {
   return (
     <div className={styles.cardContainer}>
       <div className={styles.cardTitleWrapper}>
-        <h3 className={styles.cardTitle}>
+        <h2 className={styles.cardTitle}>
           <Link href={`/projects/${project.id}`} className={styles.projectLink}>
             {project.name}
           </Link>
-        </h3>
+        </h2>
         {project.description && (
           <p className={styles.cardSubtitle}>{project.description}</p>
         )}
