@@ -1,0 +1,60 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+
+.kanbanBoard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  width: 100%;
+  @include mobile {
+    grid-template-columns: 1fr;
+  }
+}
+
+.kanbanColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  width: 100%;
+  max-width: 419px;
+  border: 1px solid $error-red-light;
+  border-radius: 10px;
+  padding: 40px 24px;
+  background-color: $color-white;
+  gap: 41px;
+  min-width: 0;
+  @include mobile {
+    padding: 20px 12px;
+  }
+}
+
+.kanbanColumnTitle {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+
+.kanbanColumnTitleColumn {
+  @include font-h5;
+  color: $color-grey-800;
+}
+
+.kanbanTaskContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  list-style: none;
+  max-width: 371px;
+}
+
+.columnCount {
+  width: 100%;
+  max-width: 41px;
+  border-radius: 50px;
+  background-color: $color-grey-200;
+  color: $disabled-grey;
+  padding: 4px 16px;
+  margin-left: 8px;
+}

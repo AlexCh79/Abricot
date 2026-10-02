@@ -1,6 +1,6 @@
 "use client";
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useState, useEffect, useId } from "react";
+import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { getProject } from "@/services/projectService";
 import { getTasks } from "@/services/taskService";
 import type { ProjectWithTasks } from "@/types/ProjectsWithTasks";
@@ -22,6 +22,8 @@ import { sortTasks } from "@/utils/tasks";
 import { Search } from "@/components/Inputs/Search";
 import { TaskCard } from "@/components/Cards/TaskCard/TaskCard";
 import type { Task, TaskStatus } from "@/types/Task";
+import KanbanBoard from "@/components/Kanban/KanbanBoard";
+import { Modal } from "@/components/Modal/Modal";
 
 type ProjectDetailProps = {
   projectId: string;
@@ -34,6 +36,8 @@ export const ProjectDetail = ({ projectId }: ProjectDetailProps) => {
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isTaskCreateOpen, setIsTaskCreateOpen] = useState(false);
   const router = useRouter();
+  const [viewedTask, setViewedTask] = useState<Task | null>(null);
+  const taskTitleId = useId();
   const [editingTask, setEditingTask] = useState<Task | null>(null);
   const [statusFilter, setStatusFilter] = useState<TaskStatus | "">("");
   const [search, setSearch] = useState("");
@@ -41,6 +45,18 @@ export const ProjectDetail = ({ projectId }: ProjectDetailProps) => {
     ...(project?.owner ? [project.owner] : []),
     ...(project?.members.map((member) => member.user) ?? []),
   ];
+
+  // Choix de la vue
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const view = searchParams.get("view") === "kanban" ? "kanban" : "list";
+
+  const changeView = (next: "list" | "kanban") => {
+    const params = new URLSearchParams(searchParams);
+    if (next === "kanban") params.set("view", "kanban");
+    else params.delete("view");
+    router.replace(`${pathname}?${params}`, { scroll: false });
+  };
 
   const handleTaskUpdated = (updated: Task) => {
     setProject((current) =>
@@ -90,6 +106,10 @@ export const ProjectDetail = ({ projectId }: ProjectDetailProps) => {
         {error || "Projet introuvable"}
       </p>
     );
+
+  const statuses: TaskStatus[] = statusFilter
+    ? [statusFilter]
+    : ["TODO", "IN_PROGRESS", "DONE"];
 
   const visibleTasks = sortTasks(
     project.tasks.filter((task) => {
@@ -179,11 +199,17 @@ export const ProjectDetail = ({ projectId }: ProjectDetailProps) => {
           </div>
           <div className={styles.detailContentRightBanner}>
             <div className={styles.detailContentBannerViews}>
-              <Chips label="Liste" source="/icon_my_tasks.svg" isActive />
               <Chips
-                label="Calendrier"
+                label="Liste"
+                source="/icon_my_tasks.svg"
+                isActive={view === "list"}
+                onClick={() => changeView("list")}
+              />
+              <Chips
+                label="Kanban"
                 source="/icon_kanban.svg"
-                isActive={false}
+                isActive={view === "kanban"}
+                onClick={() => changeView("kanban")}
               />
             </div>
             <select
@@ -204,7 +230,15 @@ export const ProjectDetail = ({ projectId }: ProjectDetailProps) => {
           </div>
         </div>
         <div className={styles.detailContentList}>
-          {visibleTasks.length === 0 ? (
+          {view === "kanban" ? (
+            <KanbanBoard
+              tasks={visibleTasks}
+              statuses={statuses}
+              onViewTask={setViewedTask}
+              headingLevel="h4"
+              showProject={false}
+            />
+          ) : visibleTasks.length === 0 ? (
             <p>
               {project.tasks.length === 0
                 ? "Aucune tâche dans ce projet pour le moment."
@@ -237,6 +271,15 @@ export const ProjectDetail = ({ projectId }: ProjectDetailProps) => {
           onUpdated={handleTaskUpdated}
           onDeleted={() => handleTaskDeleted(editingTask.id)}
         />
+      )}
+      {viewedTask && (
+        <Modal
+          onClose={() => setViewedTask(null)}
+          labelledBy={taskTitleId}
+          withCloseButton
+        >
+          <TaskCard task={viewedTask} titleId={taskTitleId} />
+        </Modal>
       )}
     </div>
   );

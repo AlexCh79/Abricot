@@ -1,0 +1,90 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+
+.kanbanCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  border: 1px solid $color-grey-200;
+  padding: 25px 40px;
+  gap: 32px;
+  background-color: $color-white;
+  width: 100%;
+  max-width: 371px;
+  @include mobile {
+    padding: 16px;
+  }
+}
+
+.kanbanCardTask {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  width: 100%;
+  max-width: 291px;
+}
+
+.kanbanCardTaskTitleZone {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 291px;
+}
+
+.kanbanCardProject {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  width: 100%;
+  max-width: 291px;
+  @include mobile {
+    flex-wrap: wrap;
+  }
+}
+
+.kanbanCardProjectZone + .kanbanCardProjectZone {
+  border-left: 1px solid $color-grey-400;
+  padding-left: 12px;
+}
+
+.kanbanCardTaskTitleFrame {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  max-width: 153px;
+  width: 100%;
+}
+
+.kanbanCardTitle {
+  @include font-h5;
+  color: #000;
+}
+
+.kanbanCardSubtitle {
+  font-size: $body-s;
+  color: $color-grey-600;
+}
+
+.kanbanCardBtnZone {
+  display: flex;
+  flex-direction: column;
+  gap: 37px;
+  width: 100%;
+  max-width: 121px;
+}
+
+.kanbanCardProjectZone {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  width: 100%;
+  max-width: 107px;
+}
+
+.kanbanCardProjectTitle {
+  font-size: $body-xs;
+  color: $color-grey-600;
+}

@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect, useId } from "react";
-import { useRouter } from "next/navigation";
 import styles from "./DashboardSection.module.scss";
 import { Button } from "@/components/buttons/Button/Button";
 import Greeting from "@/components/Greeting/Greeting";
@@ -13,8 +12,9 @@ import { getAssignedTasks } from "@/services/dashService";
 import { sortTasks } from "@/utils/tasks";
 import DashTaskCard from "../Cards/DashTaskCard/DashTaskCard";
 import { Modal } from "../Modal/Modal";
+import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { TaskCard } from "../Cards/TaskCard/TaskCard";
-
+import KanbanBoard from "../Kanban/KanbanBoard";
 export function DashboardSection() {
   const [isCreateOpen, setIsCreateOpen] = useState(false);
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -24,6 +24,17 @@ export function DashboardSection() {
   const [viewedTask, setViewedTask] = useState<Task | null>(null);
   const taskTitleId = useId();
   const router = useRouter();
+
+  // Choix de la vue
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const view = searchParams.get("view") === "kanban" ? "kanban" : "list";
+  const changeView = (next: "list" | "kanban") => {
+    const params = new URLSearchParams(searchParams);
+    if (next === "kanban") params.set("view", "kanban");
+    else params.delete("view");
+    router.replace(`${pathname}?${params}`, { scroll: false });
+  };
 
   // Récupération des tâches
   useEffect(() => {
@@ -64,8 +75,18 @@ export function DashboardSection() {
         />
       </div>
       <div className={styles.btnBar}>
-        <Chips label="Liste" source="/icon_my_tasks.svg" />
-        <Chips label="Kanban" source="/icon_kanban.svg" />
+        <Chips
+          label="Liste"
+          source="/icon_my_tasks.svg"
+          isActive={view === "list"}
+          onClick={() => changeView("list")}
+        />
+        <Chips
+          label="Kanban"
+          source="/icon_kanban.svg"
+          isActive={view === "kanban"}
+          onClick={() => changeView("kanban")}
+        />
       </div>
       <div className={styles.dashboardContent}>
         <div className={styles.dashboardContentHead}>
@@ -99,11 +120,21 @@ export function DashboardSection() {
               : "Aucune tâche ne correspond à votre recherche."}
           </p>
         )}
-        {visibleTasks.map((task) => (
-          <div key={task.id} className={styles.dashCardContainer}>
-            <DashTaskCard task={task} onView={() => setViewedTask(task)} />
-          </div>
-        ))}
+
+        {view === "kanban" ? (
+          <KanbanBoard
+            tasks={visibleTasks}
+            statuses={["TODO", "IN_PROGRESS", "DONE"]}
+            onViewTask={setViewedTask}
+          />
+        ) : (
+          visibleTasks.map((task) => (
+            <div key={task.id} className={styles.dashCardContainer}>
+              <DashTaskCard task={task} onView={() => setViewedTask(task)} />
+            </div>
+          ))
+        )}
+
         {viewedTask && (
           <Modal
             onClose={() => setViewedTask(null)}

@@ -62,3 +62,11 @@ export function sortTasks(tasks: Task[]): Task[] {
     return PRIORITY_ORDER[a.priority] - PRIORITY_ORDER[b.priority];
   });
 }
+
+// Intitulé de colonne pour la vue kanban
+export const STATUS_COLUMN_LABEL: Record<TaskStatus, string> = {
+  TODO: "À faire",
+  IN_PROGRESS: "En cours",
+  DONE: "Terminées",
+  CANCELLED: "Annulées",
+};

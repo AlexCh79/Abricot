@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { DashboardSection } from "@/components/Dashboard/DashboardSection";
 
 export const metadata: Metadata = {
@@ -6,5 +7,9 @@ export const metadata: Metadata = {
   description: "Tableau de bord",
 };
 export default function Dashboard() {
-  return <DashboardSection />;
+  return (
+    <Suspense fallback={<p>Chargement...</p>}>
+      <DashboardSection />
+    </Suspense>
+  );
 }

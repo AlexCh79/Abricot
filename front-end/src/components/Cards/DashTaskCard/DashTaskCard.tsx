@@ -4,7 +4,7 @@ import { Button } from "@/components/buttons/Button/Button";
 import type { Task } from "@/types/Task";
 import { STATUS_LABEL, STATUS_VARIANTS } from "@/utils/tasks";
 import { formatDueDate } from "@/utils/dates";
-
+import Image from "next/image";
 type DashTaskCardProps = {
   task: Task;
   onView: () => void;
@@ -20,9 +20,12 @@ export default function DashTaskCard({ task, onView }: DashTaskCardProps) {
         </div>
         <div className={styles.plentyCardContent}>
           <div className={styles.plentyCardContentProject}>
-            <img
+            <Image
               src="/icon_file_grey.svg"
               alt=""
+              width={18}
+              height={14}
+              aria-hidden="true"
               className={styles.plentyCardProjectIcon}
             />
             <span className={styles.plentyCardProjectName}>
@@ -30,9 +33,12 @@ export default function DashTaskCard({ task, onView }: DashTaskCardProps) {
             </span>
           </div>
           <div className={styles.plentyCardContentProject}>
-            <img
+            <Image
               src="/icon_kanban_grey.svg"
+              width={15}
+              height={17}
               alt=""
+              aria-hidden="true"
               className={styles.plentyCardProjectIcon}
             />
             <span className={styles.plentyCardProjectName}>
@@ -40,9 +46,12 @@ export default function DashTaskCard({ task, onView }: DashTaskCardProps) {
             </span>
           </div>
           <div className={styles.plentyCardContentProject}>
-            <img
+            <Image
               src="/icon_comments.svg"
+              width={15}
+              height={15}
               alt=""
+              aria-hidden="true"
               className={styles.plentyCardProjectIcon}
             />
             <span className={styles.plentyCardProjectName}>
