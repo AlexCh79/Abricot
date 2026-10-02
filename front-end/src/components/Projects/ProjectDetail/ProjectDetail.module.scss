@@ -120,7 +120,7 @@
 
 .detailHeaderContributorsSubtitle {
   font-size: $body-m;
-  color: $color-grey-600;
+  color: $disabled-grey;
 }
 
 .detailHeaderContributorsRightSection {
@@ -204,8 +204,8 @@
   border: 1px solid $color-grey-200;
   background-color: $color-white;
   padding: 18px 60px 18px 32px;
-  width: 100%;
-  max-width: 152px;
+  width: fit-content;
+  max-width: 250px;
   height: 63px;
   font-size: $body-s;
   color: $color-grey-600;

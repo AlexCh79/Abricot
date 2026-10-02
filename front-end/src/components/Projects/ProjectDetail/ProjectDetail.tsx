@@ -93,7 +93,9 @@ export const ProjectDetail = ({ projectId }: ProjectDetailProps) => {
 
   const visibleTasks = sortTasks(
     project.tasks.filter((task) => {
-      const matchesStatus = !statusFilter || task.status === statusFilter;
+      const matchesStatus = statusFilter
+        ? task.status === statusFilter
+        : task.status !== "CANCELLED";
       const matchesSearch = task.title
         .toLowerCase()
         .includes(search.trim().toLowerCase());
@@ -187,14 +189,16 @@ export const ProjectDetail = ({ projectId }: ProjectDetailProps) => {
             <select
               className={styles.detailContentBannerSelectStatus}
               value={statusFilter}
+              aria-label="Filtrer les tâches par statut"
               onChange={(e) =>
                 setStatusFilter(e.target.value as TaskStatus | "")
               }
             >
-              <option value="">Statut</option>
+              <option value="">Toutes sauf annulées</option>
               <option value="TODO">À faire</option>
-              <option value="IN_PROGRESS">En Cours</option>
+              <option value="IN_PROGRESS">En cours</option>
               <option value="DONE">Terminée</option>
+              <option value="CANCELLED">Annulées</option>
             </select>
             <Search placeholder="Rechercher une tâche" onSearch={setSearch} />
           </div>
