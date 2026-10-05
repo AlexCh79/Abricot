@@ -13,6 +13,7 @@ import {
 } from "@/utils/tasks";
 import { Tag } from "@/components/tags/Tag";
 import type { User } from "@/types/User";
+import { ConfirmDelete } from "../ConfirmDelete/ConfirmDelete";
 
 type TaskModalProps = {
   projectId: string;
@@ -278,23 +279,12 @@ export function TaskModal({
                 disabled={isSaving}
               />
               {isConfirmDelete ? (
-                <div className={styles.confirmZone}>
-                  <p role="alert">
-                    Supprimer définitivement « {task?.title} » ?
-                  </p>
-                  <Button
-                    type="button"
-                    label="Annuler"
-                    autoFocus
-                    onClick={() => setIsConfirmDelete(false)}
-                  />
-                  <Button
-                    type="button"
-                    label={isDeleting ? "Suppression..." : "Oui, supprimer"}
-                    disabled={isDeleting}
-                    onClick={handleDelete}
-                  />
-                </div>
+                <ConfirmDelete
+                  message={`Supprimer définitivement la tâche "${task?.title}" ?`}
+                  isDeleting={isDeleting}
+                  onCancel={() => setIsConfirmDelete(false)}
+                  onConfirm={handleDelete}
+                />
               ) : (
                 <>
                   {task && (

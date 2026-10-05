@@ -1,0 +1,58 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+
+.confirmZone {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  padding: 20px;
+  background-color: $error-red-light;
+  border: 1px solid $error-red;
+  border-radius: 10px;
+}
+
+.confirmText {
+  margin: 0;
+  color: $error-red;
+  font-size: $body-s;
+}
+
+.confirmActions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  width: 100%;
+  @include mobile {
+    flex-direction: column;
+  }
+}
+
+.confirmDeleteButton {
+  padding: 14px 24px;
+  text-wrap: nowrap;
+  font-size: $body-s;
+  color: $error-red;
+  background-color: $color-white;
+  border: 1px solid $error-red;
+  border-radius: 8px;
+  width: 100%;
+  cursor: pointer;
+  transition: all 300ms ease-out;
+
+  &:hover:not(:disabled) {
+    background-color: $error-red;
+    color: $color-white;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $error-red;
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    color: $disabled-grey;
+    border-color: $disabled-grey;
+    cursor: not-allowed;
+  }
+}

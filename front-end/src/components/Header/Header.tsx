@@ -9,7 +9,7 @@ export default function Header() {
       <div className={styles.header__wrapper}>
         <Image
           src="/logo_orange.svg"
-          height={18.72}
+          height={19}
           width={147}
           alt="Abricot"
           className={styles.logo}

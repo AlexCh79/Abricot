@@ -18,6 +18,7 @@ import { ProjectWithTasks } from "@/types/ProjectsWithTasks";
 import { User } from "@/types/User";
 import { searchUsers } from "@/services/userService";
 import { getInitials } from "@/utils/name";
+import { ConfirmDelete } from "../ConfirmDelete/ConfirmDelete";
 
 type ProjectModalProps = {
   project?: ProjectWithTasks;
@@ -304,24 +305,12 @@ export function ProjectModal({
             </p>
           )}
           {isConfirmDelete ? (
-            <div className={styles.confirmZone}>
-              <p role="alert" className={styles.confirmText}>
-                Supprimer définitivement &quot;{project?.name}&quot; et toutes
-                ses tâches ?
-              </p>
-              <Button
-                type="button"
-                label="Annuler"
-                autoFocus
-                onClick={() => setIsConfirmDelete(false)}
-              />
-              <Button
-                type="button"
-                label={isDeleting ? "Suppression..." : "Oui, supprimer"}
-                disabled={isDeleting}
-                onClick={handleDelete}
-              />
-            </div>
+            <ConfirmDelete
+              message={`Supprimer définitivement "${project?.name}" et toutes ses tâches ?`}
+              isDeleting={isDeleting}
+              onCancel={() => setIsConfirmDelete(false)}
+              onConfirm={handleDelete}
+            />
           ) : (
             <>
               <Button label={submitLabel} type="submit" disabled={isSaving} />
