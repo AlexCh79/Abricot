@@ -8,6 +8,7 @@ import { Chips } from "@/components/Chips/Chips";
 import { ProjectModal } from "@/components/Modal/ProjectModal/ProjectModal";
 import { Search } from "@/components/Inputs/Search";
 import type { Task } from "@/types/Task";
+import type { User } from "@/types/User";
 import { getAssignedTasks } from "@/services/dashService";
 import { sortTasks } from "@/utils/tasks";
 import DashTaskCard from "../Cards/DashTaskCard/DashTaskCard";
@@ -15,6 +16,10 @@ import { Modal } from "../Modal/Modal";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { TaskCard } from "../Cards/TaskCard/TaskCard";
 import KanbanBoard from "../Kanban/KanbanBoard";
+import Image from "next/image";
+import { getProject } from "@/services/projectService";
+import { TaskModal } from "../Modal/TaskModal/TaskModal";
+
 export function DashboardSection() {
   const [isCreateOpen, setIsCreateOpen] = useState(false);
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -24,6 +29,11 @@ export function DashboardSection() {
   const [viewedTask, setViewedTask] = useState<Task | null>(null);
   const taskTitleId = useId();
   const router = useRouter();
+  const [editingTask, setEditingTask] = useState<Task | null>(null);
+  const [assignableUsers, setAssignableUsers] = useState<
+    Pick<User, "id" | "name" | "email">[]
+  >([]);
+  const [isPreparingEdit, setIsPreparingEdit] = useState(false);
 
   // Choix de la vue
   const searchParams = useSearchParams();
@@ -60,6 +70,24 @@ export function DashboardSection() {
       task.title.toLowerCase().includes(search.trim().toLowerCase()),
     ),
   );
+
+  // Ouverture de la modale de tâche (visualisation ou modification)
+  const openEdit = async (task: Task) => {
+    setIsPreparingEdit(true);
+    try {
+      const project = await getProject(task.projectId);
+      setAssignableUsers([
+        ...(project.owner ? [project.owner] : []),
+        ...project.members.map((m) => m.user),
+      ]);
+      setViewedTask(null);
+      setEditingTask(task);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Chargement impossibles.");
+    } finally {
+      setIsPreparingEdit(false);
+    }
+  };
 
   return (
     <div className={styles.dashboardPage}>
@@ -141,10 +169,45 @@ export function DashboardSection() {
             labelledBy={taskTitleId}
             withCloseButton
           >
+            <button
+              type="button"
+              onClick={() => openEdit(viewedTask)}
+              disabled={isPreparingEdit}
+              className={styles.editTaskButton}
+            >
+              <Image
+                src="/icon_modify.svg"
+                alt=""
+                aria-hidden="true"
+                width={16}
+                height={14}
+              />
+              Modifier
+            </button>
             <TaskCard task={viewedTask} titleId={taskTitleId} />
           </Modal>
         )}
       </div>
+      {editingTask && (
+        <TaskModal
+          projectId={editingTask.projectId}
+          assignableUsers={assignableUsers}
+          task={editingTask}
+          onClose={() => setEditingTask(null)}
+          onUpdated={(updated) => {
+            setTasks((current) =>
+              current.map((t) => (t.id === updated.id ? updated : t)),
+            );
+            setEditingTask(null);
+          }}
+          onDeleted={() => {
+            setTasks((current) =>
+              current.filter((t) => t.id !== editingTask.id),
+            );
+            setEditingTask(null);
+          }}
+        />
+      )}
       {isCreateOpen && (
         <ProjectModal
           onClose={() => setIsCreateOpen(false)}
