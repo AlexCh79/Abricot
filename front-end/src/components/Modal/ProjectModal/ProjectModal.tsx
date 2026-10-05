@@ -19,6 +19,7 @@ import { User } from "@/types/User";
 import { searchUsers } from "@/services/userService";
 import { getInitials } from "@/utils/name";
 import { ConfirmDelete } from "../ConfirmDelete/ConfirmDelete";
+import { Project } from "@/types/Project";
 
 type ProjectModalProps = {
   project?: ProjectWithTasks;
@@ -52,6 +53,14 @@ export function ProjectModal({
   const [isDeleting, setIsDeleting] = useState(false);
   const { user } = useUser();
   const isOwner = Boolean(user && project && user.id === project.ownerId);
+
+  // Gestion des emails utilisateurs inconnus (non inscrits)
+  const [missingEmails, setMissingEmails] = useState<string[]>([]);
+  const projectEmails = (p: Project) =>
+    [
+      ...(p.owner ? [p.owner.email] : []),
+      ...p.members.map((m) => m.user.email),
+    ].map((e) => e.toLowerCase());
 
   // Suppression d'un projet
   const handleDelete = async () => {
@@ -122,6 +131,7 @@ export function ProjectModal({
     setIsSaving(true);
 
     try {
+      let absents: string[] = [];
       // Création ou modification du projet
       if (project) {
         await updateProject(project.id, { name, description });
@@ -142,6 +152,9 @@ export function ProjectModal({
           }),
         ]);
         const refreshed = await getProject(project.id);
+        absents = contributors.filter(
+          (email) => !projectEmails(refreshed).includes(email.toLowerCase()),
+        );
         onUpdated?.({ ...refreshed, tasks: project.tasks });
       } else {
         const created = await createProject({
@@ -149,7 +162,14 @@ export function ProjectModal({
           description,
           contributors,
         });
+        absents = contributors.filter(
+          (email) => !projectEmails(created).includes(email.toLowerCase()),
+        );
         onCreated?.({ ...created, tasks: [] });
+      }
+      if (absents.length > 0) {
+        setMissingEmails(absents);
+        return;
       }
       onClose();
     } catch (err) {
@@ -302,6 +322,15 @@ export function ProjectModal({
           {error && (
             <p role="alert" className={styles.errorText}>
               {error}
+            </p>
+          )}
+          {missingEmails.length > 0 && (
+            <p role="status" className={styles.warningText}>
+              Projet enregistré.{" "}
+              {missingEmails.length > 1
+                ? "Ces adresses ne correspondent à aucun compte connu et n'ont pas été ajoutées."
+                : "Cette adresse ne correspond à aucun compte connu et n'a pas été ajoutée."}{" "}
+              : {missingEmails.join(", ")}
             </p>
           )}
           {isConfirmDelete ? (
