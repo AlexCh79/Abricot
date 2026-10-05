@@ -43,9 +43,9 @@ export const UserChip = ({ name }: UserChipProps) => {
 };
 
 export const OwnerInitials = ({ name }: UserChipProps) => {
-  return <span className={styles.AdminInitials}>{getInitials(name)}</span>;
+  return <span className={styles.adminInitials}>{getInitials(name)}</span>;
 };
 
 export const OwnerChip = () => {
-  return <span className={styles.AdminChip}>Propriétaire</span>;
+  return <span className={styles.adminChip}>Propriétaire</span>;
 };

@@ -9,6 +9,7 @@ import {
   PRIORITY_LABEL,
   PRIORITY_VARIANTS,
 } from "@/utils/tasks";
+import Image from "next/image";
 import { MoreButton } from "@/components/buttons/IconButton/IconButton";
 import { formatDueDate, commentDate } from "@/utils/dates";
 import {
@@ -83,10 +84,12 @@ export const TaskCard = ({ task, onEdit, titleId }: TaskCardProps) => {
       </div>
       <div className={styles.taskCalendarContainer}>
         <span className={styles.taskCalendarTitle}>Échéance : </span>
-        <img
+        <Image
           src="/icon_kanban_black.svg"
           alt=""
           className={styles.iconCalendar}
+          width={15}
+          height={17}
         />
         <span className={styles.taskCalendarDate}>
           {formatDueDate(task.dueDate)}
@@ -113,7 +116,13 @@ export const TaskCard = ({ task, onEdit, titleId }: TaskCardProps) => {
           <span className={styles.taskCommentsTitle}>
             Commentaires ({comments.length})
           </span>
-          <img src="/icon_top_arrow.svg" alt="" className={styles.iconArrow} />
+          <Image
+            src="/icon_top_arrow.svg"
+            alt=""
+            className={styles.iconArrow}
+            width={16}
+            height={8}
+          />
         </button>
       </div>
       {/* Emplacement des commentaires affichés */}

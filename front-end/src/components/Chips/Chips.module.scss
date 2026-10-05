@@ -54,7 +54,7 @@
   color: $disabled-grey;
 }
 
-.AdminInitials {
+.adminInitials {
   background-color: $color-brand-light-orange;
   border-radius: 50%;
   border: none;
@@ -69,11 +69,14 @@
   width: 27px;
 }
 
-.AdminChip {
+.adminChip {
   background-color: $color-brand-light-orange;
   color: $color-brand-orange-text;
   border-radius: 50px;
   border: none;
   font-size: $body-s;
   padding: 4px 16px;
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
 }
